@@ -21,10 +21,16 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   compararContrasena,
+  hashearContrasena,
   crearSesion,
   obtenerSesion,
   cerrarSesion,
+  estaBloqueado,
+  registrarFalla,
+  limpiarFallas,
 } from "./seguridad.js";
+//^ mismas reglas que ve el tutor en el navegador (archivo compartido)
+import { validarContrasena } from "../src/utils/reglasContrasena.js";
 
 const PUERTO = 3000;
 const carpeta = path.dirname(fileURLToPath(import.meta.url));
@@ -52,6 +58,11 @@ server.use(jsonServer.bodyParser);
 server.post("/auth/login", async (req, res) => {
   const { usuario = "", password = "" } = req.body ?? {};
   const texto = String(usuario).trim();
+  const llaveIntentos = `${req.ip}|${texto.toLowerCase()}`;
+
+  if (estaBloqueado(llaveIntentos)) {
+    return res.status(429).json({ message: "auth.demasiados_intentos" });
+  }
 
   let cuenta;
   if (texto.includes("@")) {
@@ -72,10 +83,18 @@ server.post("/auth/login", async (req, res) => {
   const hash = cuenta?.passwordHash ?? null;
   const correcta = await compararContrasena(String(password), hash);
 
+  //? Tutor con clave válida que todavía no crea su contraseña:
+  //? lo mandamos a "Primer acceso" en lugar de un error genérico.
+  if (cuenta?.rol === "tutor" && !cuenta.passwordHash) {
+    return res.status(403).json({ message: "auth.primer_acceso_pendiente" });
+  }
+
   if (!cuenta || !correcta) {
+    registrarFalla(llaveIntentos);
     // Mensaje genérico: no decimos si falló el usuario o la contraseña.
     return res.status(401).json({ message: "auth.login_failed" });
   }
+  limpiarFallas(llaveIntentos);
 
   const sesion = {
     id: cuenta.id,
@@ -86,6 +105,54 @@ server.post("/auth/login", async (req, res) => {
   };
   const token = crearSesion(sesion);
   res.json({ token, ...sesion });
+});
+
+/**
+ * ? POST /auth/primer-acceso
+ * Cuerpo: { clave, password }
+ *
+ * El tutor crea su contraseña usando la clave que le dio la estancia.
+ * Solo funciona UNA vez: si la clave ya tiene contraseña, se rechaza.
+ * Pasos: 1) buscar clave  2) validar reglas  3) bcrypt.hash  4) guardar
+ */
+server.post("/auth/primer-acceso", async (req, res) => {
+  const { clave = "", password = "" } = req.body ?? {};
+  const claveNormal = String(clave).trim().toUpperCase();
+  const llaveIntentos = `${req.ip}|primer|${claveNormal}`;
+
+  if (estaBloqueado(llaveIntentos)) {
+    return res.status(429).json({ message: "auth.demasiados_intentos" });
+  }
+
+  // 1) La clave debe existir y no haberse usado
+  const tutor = db.get("tutores").find({ claveAcceso: claveNormal }).value();
+  if (!tutor || tutor.passwordHash) {
+    registrarFalla(llaveIntentos);
+    return res.status(400).json({ message: "auth.clave_invalida" });
+  }
+
+  // 2) Reglas de contraseña, incluyendo datos personales de la familia
+  //^ estos datos nunca se envían al navegador, solo se usan aquí
+  const hijos = db
+    .get("infantes")
+    .filter((i) => tutor.infanteIds.includes(i.id))
+    .value();
+  const fallas = validarContrasena(String(password), {
+    nombres: [tutor.nombre, ...hijos.map((h) => `${h.nombre} ${h.apellidos}`)],
+    ciudades: [tutor.ciudad],
+    fechas: hijos.map((h) => h.fechaNacimiento),
+  });
+  if (fallas.length > 0) {
+    return res
+      .status(400)
+      .json({ message: "auth.contrasena_insegura", fallas });
+  }
+
+  // 3) y 4) Guardar SOLO el hash, nunca la contraseña
+  const passwordHash = await hashearContrasena(String(password));
+  db.get("tutores").find({ id: tutor.id }).assign({ passwordHash }).write();
+  limpiarFallas(llaveIntentos);
+  res.status(204).end();
 });
 
 /** POST /auth/logout: elimina la sesión del token enviado. */
@@ -111,6 +178,15 @@ server.use((req, res, next) => {
   // Guardamos la sesión para que las reglas por rol (que se irán
   // agregando pantalla por pantalla) sepan quién hace la petición.
   req.sesion = sesion;
+  next();
+});
+
+//? Nadie puede escribir un passwordHash por la API general (PUT/PATCH/POST
+//? /usuarios, /tutores...). Las contraseñas solo cambian por /auth/*.
+server.use((req, _res, next) => {
+  if (req.body && typeof req.body === "object") {
+    delete req.body.passwordHash;
+  }
   next();
 });
 

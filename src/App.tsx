@@ -1,5 +1,8 @@
-import { Admin } from "react-admin";
-import { authProvider } from "./providers/authProvider";
+import { Admin, CustomRoutes } from "react-admin";
+import { Route } from "react-router-dom";
+import { authProvider, Rol } from "./providers/authProvider";
+import { LoginPage } from "./pages/LoginPage";
+import { PrimerAcceso } from "./pages/PrimerAcceso";
 import { dataProvider } from "./providers/dataProvider";
 import { i18nProvider } from "./providers/i18nProvider";
 import { tema } from "./theme/theme";
@@ -26,10 +29,16 @@ export const App = () => (
     theme={tema}
     layout={Layout}
     dashboard={Dashboard}
+    loginPage={LoginPage}
     requireAuth
     title="Padrón Infantil"
   >
-    {(rol) => {
+    {/* Rutas sin sesión ni layout: react-admin las muestra aunque
+        requireAuth esté activo (así el tutor puede crear su contraseña). */}
+    <CustomRoutes noLayout>
+      <Route path="/primer-acceso" element={<PrimerAcceso />} />
+    </CustomRoutes>
+    {(rol: Rol | undefined) => {
       switch (rol) {
         case "tutor":
           return rutasTutor;

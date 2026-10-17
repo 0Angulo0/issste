@@ -158,7 +158,7 @@ export const spanishMessages = {
       offline: "Sin conexión. No se pudo obtener la información.",
     },
     validation: {
-      required: "Obligatorio",
+      required: "Este campo es obligatorio",
     },
   },
   //? llaves propias del Padrón Infantil (menú, roles y pantallas),
@@ -191,6 +191,74 @@ export const spanishMessages = {
     invalid_credentials: "Credenciales inválidas, por favor intenta de nuevo",
     session_expired: "Tu sesión ha expirado, inicia sesión de nuevo",
     auth_required: "Debes iniciar sesión para continuar",
+    //^ respuestas de server/server.js
+    primer_acceso_pendiente:
+      "Esta clave todavía no tiene contraseña. Primero crea tu contraseña.",
+    clave_invalida:
+      "La clave no es válida o ya se usó. Revisa la clave o pide ayuda en tu estancia.",
+    contrasena_insegura:
+      "La contraseña no es segura. Revisa los requisitos marcados con ✗.",
+    demasiados_intentos:
+      "Demasiados intentos fallidos. Espera 15 minutos e inténtalo de nuevo.",
+  },
+  //? Pantalla 1: inicio de sesión (src/pages/LoginPage.tsx)
+  login: {
+    titulo: "Iniciar sesión",
+    usuario: "Correo o clave de acceso",
+    usuario_ayuda:
+      "Personal: tu correo institucional. Familias: la clave que te dio la estancia, por ejemplo PI-7K3M9Q.",
+    contrasena: "Contraseña",
+    ingresar: "Ingresar",
+    ingresando: "Ingresando…",
+    primer_acceso: "¿Es tu primera vez? Crea tu contraseña con tu clave",
+    ir_primer_acceso: "Crear mi contraseña",
+    olvide: "¿Olvidaste tu contraseña?",
+    olvide_ayuda:
+      "Personal: pide a la administración que restablezca tu contraseña. Familias: acude a tu estancia para que te generen una clave nueva.",
+    errores: {
+      correo: "Escribe un correo válido, por ejemplo nombre@issste.gob.mx",
+      clave: "La clave tiene el formato PI- seguido de 6 letras o números",
+    },
+  },
+  //? Primer acceso del tutor (src/pages/PrimerAcceso.tsx)
+  primer_acceso: {
+    titulo: "Crear mi contraseña",
+    instrucciones:
+      "Escribe la clave de acceso que te entregó la estancia y crea una contraseña. Solo tendrás que hacerlo una vez.",
+    clave: "Clave de acceso",
+    clave_ayuda: "Ejemplo: PI-7K3M9Q",
+    nueva: "Nueva contraseña",
+    confirmar: "Confirma tu contraseña",
+    guardar: "Crear contraseña",
+    guardando: "Guardando…",
+    exito:
+      "Contraseña creada correctamente. Ahora inicia sesión con tu clave y tu nueva contraseña.",
+    volver: "Volver a iniciar sesión",
+  },
+  //? Requisitos de contraseña (src/utils/reglasContrasena.js)
+  contrasena: {
+    titulo: "Tu contraseña debe:",
+    resumen: "Cumples %{cumplidas} de %{total} requisitos.",
+    cumple: "cumple",
+    falta: "falta",
+    al_guardar: "se revisa al guardar",
+    mostrar: "Mostrar",
+    ocultar: "Ocultar",
+    reglas: {
+      longitud: "Tener al menos 8 caracteres",
+      mayuscula: "Tener al menos una letra mayúscula",
+      minuscula: "Tener al menos una letra minúscula",
+      numero: "Tener al menos un número",
+      especial: "Tener al menos un carácter especial (por ejemplo ! # $ %)",
+      espacios: "No tener espacios",
+      comun: "No ser una contraseña común (como «password» o «qwerty»)",
+      personales:
+        "No contener tu nombre, el de tu hija o hijo, fechas importantes ni tu ciudad",
+    },
+    errores: {
+      no_cumple: "La contraseña todavía no cumple todos los requisitos",
+      no_coincide: "Las contraseñas no coinciden",
+    },
   },
   resources: {
     infantes: {

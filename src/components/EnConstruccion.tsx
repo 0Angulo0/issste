@@ -3,7 +3,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 
 /**
  * Pantalla temporal mientras se construye cada vista.
- * Se irá reemplazando pantalla por pantalla (ver docs/PLAN.md).
+ * Se irá reemplazando pantalla por pantalla (ver CLAUDE.md).
  */
 export const EnConstruccion = ({ titulo }: { titulo: string }) => {
   const translate = useTranslate();

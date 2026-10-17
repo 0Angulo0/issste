@@ -2,7 +2,7 @@
 
 Este documento explica **cómo y por qué** se protegen las contraseñas en el Padrón Infantil. Está pensado para quien mantenga el sistema y no necesita conocimientos previos de criptografía.
 
-> Estado: se irá completando. En el **paso 1** quedaron listos el login con bcrypt y las sesiones. El **primer acceso del tutor** y las **reglas de contraseña segura** se agregan en la Pantalla 1 (ver `docs/PLAN.md`).
+> Estado: listos el login con bcrypt, las sesiones, el **primer acceso del tutor**, las **reglas de contraseña segura** y el **límite de intentos** (secciones 4 a 7). Falta la generación de la clave al dar de alta un infante, que se hará con la pantalla de alta de infantes.
 
 ---
 
@@ -48,24 +48,41 @@ El salt y las rondas viajan **dentro** del hash. Por eso no hay que guardarlos a
 
 | Archivo | Qué hace |
 |---|---|
-| `server/seguridad.js` | Concentra todo: `hashearContrasena()`, `compararContrasena()`, las sesiones y la generación de claves de acceso. |
-| `server/server.js` | Ruta `POST /auth/login`. Además, quita `passwordHash` de **todas** las respuestas de la API (`router.render`). |
+| `server/seguridad.js` | Concentra todo: `hashearContrasena()`, `compararContrasena()`, sesiones, claves de acceso y límite de intentos. |
+| `server/server.js` | Rutas `POST /auth/login`, `POST /auth/primer-acceso` y `POST /auth/logout`. Quita `passwordHash` de **todas** las respuestas y de **todas** las escrituras de la API. |
 | `server/semilla.js` | Crea `db.json` con datos de ejemplo. Las contraseñas de prueba se guardan ya hasheadas. |
+| `src/utils/reglasContrasena.js` | Reglas de contraseña segura. Es **un solo archivo compartido** por navegador y servidor, para que las reglas nunca se contradigan. |
 | `src/providers/authProvider.ts` | Envía usuario y contraseña al servidor y guarda el **token** que recibe, nunca la contraseña. |
+| `src/pages/LoginPage.tsx`, `src/pages/PrimerAcceso.tsx` | Pantallas de inicio de sesión y de creación de contraseña. |
 
 El paquete que usamos es [`bcrypt`](https://www.npmjs.com/package/bcrypt), que es nativo de Node.js. Existe también `bcryptjs`, una versión hecha solo en JavaScript; aquí no la necesitamos porque bcrypt solo corre en el servidor.
+
+### Las dos funciones de bcrypt que usamos
+
+```js
+// Al CREAR una contraseña (primer acceso): texto plano -> hash
+const passwordHash = await bcrypt.hash("Girasol#Azul7", 12);
+// "$2b$12$..."  <- esto es lo único que se guarda en db.json
+
+// Al INICIAR SESIÓN: ¿la contraseña escrita corresponde al hash guardado?
+const correcta = await bcrypt.compare("Girasol#Azul7", passwordHash); // true
+```
+
+Las dos son `async` porque tardan unos 250 ms a propósito; usar `await` evita que el servidor se congele mientras calcula.
 
 ## 4. Flujo de inicio de sesión
 
 ```
 Navegador                              Servidor (server.js)
 ─────────                              ────────────────────
-usuario + contraseña  ── POST /auth/login ──►  1. Busca la cuenta:
+usuario + contraseña  ── POST /auth/login ──►  0. ¿Esa IP + usuario está bloqueada? -> 429
+                                               1. Busca la cuenta:
                                                   - con "@"  → usuarios (personal)
                                                   - sin "@"  → tutores (clave PI-XXXXXX)
                                                2. bcrypt.compare(contraseña, passwordHash)
-                                               3. Si coincide: crea un token aleatorio
-◄── { token, id, rol, nombre } ──────────────  4. Si no: 401 "Usuario o contraseña incorrectos"
+                                               3. Tutor sin contraseña -> 403 "primer acceso pendiente"
+                                               4. Si no coincide: suma una falla, 401 genérico
+◄── { token, id, rol, nombre } ──────────────  5. Si coincide: borra fallas y crea un token
 Guarda el token en localStorage
 Cada petición lleva:  Authorization: Bearer <token>
 ```
@@ -76,19 +93,53 @@ Decisiones de seguridad en este flujo:
 - **Tiempo constante.** Aunque la cuenta no exista, igual se llama a `bcrypt.compare`, para que el tiempo de respuesta no delate si un correo está registrado.
 - **Cuentas inactivas.** Un usuario dado de baja (`activo: false`) no puede iniciar sesión.
 - **Token, no contraseña.** Después del login el navegador solo tiene un token aleatorio de 64 caracteres. Al cerrar sesión el servidor lo invalida.
+- **Excepción consciente:** a un tutor cuya clave existe pero aún no tiene contraseña le decimos que vaya a "Primer acceso". Esto revela que la clave existe, pero las claves son aleatorias (31⁶ ≈ 887 millones de combinaciones) y el límite de intentos impide adivinarlas.
 
-## 5. Limitaciones conocidas del servidor de desarrollo
+## 5. Primer acceso del tutor
+
+1. Al dar de alta a un infante, el sistema crea una cuenta de tutor con una **clave de acceso** aleatoria (`PI-7K3M9Q`) y **sin contraseña** (`passwordHash: null`). La estancia entrega la clave a la familia.
+2. El tutor abre "¿Es tu primera vez? Crea tu contraseña" (`/primer-acceso`), escribe la clave y su nueva contraseña dos veces.
+3. Mientras escribe, ve qué requisitos cumple (✓/✗). Esto es solo una ayuda.
+4. El servidor (`POST /auth/primer-acceso`) hace la revisión real:
+   - la clave debe existir y **no haberse usado** (si ya tiene contraseña: 400, "clave no válida o ya usada");
+   - la contraseña debe cumplir **todas** las reglas, incluyendo la de datos personales;
+   - si todo está bien: `bcrypt.hash` y se guarda **solo** el hash.
+5. El tutor regresa al login con su clave ya escrita y entra con su nueva contraseña.
+
+Si una familia pierde su contraseña, la estancia debe generar una clave nueva (se implementará con la gestión de infantes).
+
+## 6. Reglas de contraseña segura
+
+| Regla | Dónde se revisa |
+|---|---|
+| Al menos 8 caracteres | navegador y servidor |
+| Al menos una mayúscula, una minúscula, un número y un carácter especial | navegador y servidor |
+| Sin espacios | navegador y servidor |
+| No ser una contraseña común (`password`, `qwerty`, `admin`, `issste`…). Se comparan solo las letras: `Password123!` cuenta como `password` | navegador y servidor |
+| No contener el nombre del tutor, el nombre o apellidos de sus hijos, su ciudad, ni fechas de nacimiento (`2024`, `1502`, `0215`, `150224`, `15022024`, `20240215`) | **solo servidor** |
+
+¿Por qué la última regla solo la revisa el servidor? Para revisarla en el navegador habría que enviarle el nombre, la fecha de nacimiento y la ciudad de la familia a **cualquiera que escriba una clave**. Preferimos no exponer esos datos; si la contraseña los contiene, el servidor responde con la lista de reglas que fallaron y la pantalla marca esa regla con ✗.
+
+Para agregar o cambiar una regla basta con editar `src/utils/reglasContrasena.js` (y su mensaje en `src/providers/i18nProvider.ts`, sección `contrasena.reglas`). El cambio aplica en ambos lados.
+
+## 7. Límite de intentos y protección de la API
+
+- **5 intentos fallidos** desde la misma IP con el mismo usuario (o la misma clave en primer acceso) bloquean ese usuario en esa IP durante **15 minutos** (respuesta 429). Se configura con `MAX_INTENTOS` y `MINUTOS_BLOQUEO` en `seguridad.js`.
+- Toda la API, salvo `/auth/*`, exige un token válido (si no lo hay: 401).
+- Ninguna respuesta incluye `passwordHash`, y ninguna petición puede escribirlo (`PATCH /tutores/1 { passwordHash: ... }` se ignora). Las contraseñas **solo** cambian por `/auth/*`.
+
+## 8. Limitaciones conocidas del servidor de desarrollo
 
 Este servidor es para **desarrollo y demostración**. Antes de usarlo en producción hay que:
 
-1. Guardar las sesiones en una base de datos o usar JWT firmados con expiración. Hoy viven en memoria y se pierden al reiniciar el servidor.
+1. Guardar las sesiones y el contador de intentos en una base de datos, o usar JWT firmados con expiración. Hoy viven en memoria y se pierden al reiniciar el servidor.
 2. Servir todo por **HTTPS**, para que la contraseña no viaje en texto plano por la red.
-3. Limitar los intentos de login (por ejemplo, 5 intentos y luego bloqueo temporal).
-4. Restringir por rol las rutas de la API (se irá agregando pantalla por pantalla).
+3. Restringir por rol las rutas de la API (se irá agregando pantalla por pantalla).
+4. Agregar el restablecimiento de contraseña del personal desde el panel del administrador.
 
-## 6. Cuentas de prueba
+## 9. Cuentas de prueba
 
-Se generan con `npm run semilla`. Todas usan la contraseña `Padron#2026`.
+Se generan con `npm run semilla` (después hay que **reiniciar** `npm run server`, porque el servidor guarda los datos en memoria). Todas usan la contraseña `Padron#2026`.
 
 | Usuario | Rol |
 |---|---|
@@ -96,4 +147,4 @@ Se generan con `npm run semilla`. Todas usan la contraseña `Padron#2026`.
 | `coordinador.centro@issste.gob.mx` | Coordinador regional (Centro) |
 | `personal.ebdi35@issste.gob.mx` | Personal de estancia (EBDI 35) |
 | `PI-7K3M9Q` | Tutor de Sofía Martínez López |
-| `PI-4H8R2T` | Tutor sin contraseña (para probar el primer acceso) |
+| `PI-4H8R2T` | Tutor de Mateo, **sin contraseña** (para probar el primer acceso; por ejemplo `Girasol#Azul7`) |

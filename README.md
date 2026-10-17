@@ -12,12 +12,13 @@ Hecha con [react-admin](https://marmelab.com/react-admin/) y diseñada con crite
 
 ```sh
 npm install        # instalar dependencias (solo la primera vez)
-npm run semilla    # crear server/db.json con datos de ejemplo (sobrescribe los datos)
+npm run semilla    # crear server/db.json con datos de ejemplo (sobrescribe los datos;
+                   # si el servidor ya estaba corriendo, reinícialo)
 npm run server     # terminal 1: API en http://localhost:3000
 npm run dev        # terminal 2: aplicación en http://localhost:5173
 ```
 
-Las cuentas de prueba están en [server/README_SEGURIDAD.md](server/README_SEGURIDAD.md#6-cuentas-de-prueba).
+Las cuentas de prueba están en [server/README_SEGURIDAD.md](server/README_SEGURIDAD.md#9-cuentas-de-prueba).
 
 ## Otros comandos
 
@@ -44,7 +45,7 @@ src/
   components/           piezas compartidas entre roles
   utils/                cálculos (edad, percentiles, validaciones)
   recursos/             logotipos
-docs/PLAN.md            plan de trabajo y decisiones
+CLAUDE.md               estado del proyecto, decisiones y siguientes pasos
 ```
 
 ### ¿Cómo se logra que cada rol vea algo distinto?

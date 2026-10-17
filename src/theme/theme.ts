@@ -36,6 +36,11 @@ const anilloFoco = {
   outlineOffset: "2px",
 };
 
+/** Icono "error" de Material (círculo con !) para los mensajes de error. */
+const iconoError = `url("data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2M12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"/></svg>',
+)}") center / contain no-repeat`;
+
 export const tema: RaThemeOptions = {
   ...defaultTheme,
   palette: {
@@ -74,9 +79,50 @@ export const tema: RaThemeOptions = {
         root: { "&:focus-visible": anilloFoco, fontWeight: 600 },
       },
     },
-    MuiInputBase: {
+    //? Campos con contorno (como en los borradores) en lugar de "filled".
+    MuiTextField: {
+      defaultProps: { variant: "outlined", margin: "dense" },
+    },
+    MuiOutlinedInput: {
       styleOverrides: {
-        root: { "&.Mui-focused": { outline: `2px solid ${colores.foco}` } },
+        //^ borde gris oscuro (#767676 cumple 4.5:1) y foco azul grueso
+        notchedOutline: { borderColor: "#767676", borderWidth: 2 },
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: colores.foco,
+            borderWidth: 3,
+          },
+          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+            borderColor: colores.error,
+            borderWidth: 3,
+          },
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.95rem",
+          marginInline: 0,
+          //? Los errores llevan icono además del color rojo (no depender
+          //? solo del color). El icono se dibuja con CSS y no lo lee el
+          //? lector de pantalla; el texto del error sí.
+          "&.Mui-error": {
+            display: "flex",
+            gap: 6,
+            alignItems: "flex-start",
+            fontWeight: 600,
+            "&::before": {
+              content: '""',
+              flex: "none",
+              width: 20,
+              height: 20,
+              backgroundColor: "currentColor",
+              mask: iconoError,
+              WebkitMask: iconoError,
+            },
+          },
+        },
       },
     },
   },

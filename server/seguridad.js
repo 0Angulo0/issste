@@ -39,7 +39,7 @@ export async function hashearContrasena(contrasena) {
 /**
  * ? Compara una contraseña escrita por el usuario contra el hash guardado.
  *
- * bcrypt toma el salt que viene dentro del hash, vuelve a calcular el hash 
+ * bcrypt toma el salt que viene dentro del hash, vuelve a calcular el hash
  * de la contraseña y revisa si ambos coinciden.
  */
 export async function compararContrasena(contrasena, hash) {
@@ -90,4 +90,42 @@ export function generarClaveAcceso() {
     clave += alfabeto[crypto.randomInt(alfabeto.length)];
   }
   return `PI-${clave}`;
+}
+
+/**
+ * ? Límite de intentos fallidos (protección contra fuerza bruta).
+ *
+ * Si alguien falla MAX_INTENTOS veces seguidas desde la misma
+ * computadora (IP) y con el mismo usuario, se bloquea durante
+ * MINUTOS_BLOQUEO. Así no se pueden probar miles de contraseñas.
+ * Igual que las sesiones, vive en memoria y se reinicia con el servidor.
+ */
+export const MAX_INTENTOS = 5;
+export const MINUTOS_BLOQUEO = 15;
+const intentos = new Map(); //^ "ip|usuario" -> { fallas, hasta }
+
+/** true si esa combinación IP + usuario está bloqueada en este momento. */
+export function estaBloqueado(llave) {
+  const registro = intentos.get(llave);
+  if (!registro?.hasta) return false;
+  if (Date.now() > registro.hasta) {
+    intentos.delete(llave); //^ ya pasó el bloqueo
+    return false;
+  }
+  return true;
+}
+
+/** Suma un intento fallido; al llegar al máximo, bloquea. */
+export function registrarFalla(llave) {
+  const registro = intentos.get(llave) ?? { fallas: 0, hasta: null };
+  registro.fallas += 1;
+  if (registro.fallas >= MAX_INTENTOS) {
+    registro.hasta = Date.now() + MINUTOS_BLOQUEO * 60 * 1000;
+  }
+  intentos.set(llave, registro);
+}
+
+/** Un acceso correcto borra el historial de fallas. */
+export function limpiarFallas(llave) {
+  intentos.delete(llave);
 }

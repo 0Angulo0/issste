@@ -34,6 +34,49 @@ export const leerSesion = (): Sesion | null => {
   }
 };
 
+/** Lee { message } de una respuesta de error del servidor. */
+const leerMensajeError = async (respuesta: Response, porDefecto: string) => {
+  try {
+    const cuerpo = await respuesta.json();
+    return typeof cuerpo?.message === "string" ? cuerpo.message : porDefecto;
+  } catch {
+    return porDefecto;
+  }
+};
+
+/** Error de primer acceso: incluye qué reglas de contraseña fallaron. */
+export class ErrorPrimerAcceso extends Error {
+  constructor(
+    message: string,
+    public fallas: string[] = [],
+  ) {
+    super(message);
+  }
+}
+
+/**
+ * ? Primer acceso del tutor: crea su contraseña con la clave de la estancia.
+ * No es parte de la interfaz AuthProvider de react-admin, por eso es una
+ * función aparte que usa pages/PrimerAcceso.tsx.
+ */
+export const crearContrasenaPrimerAcceso = async (
+  clave: string,
+  password: string,
+) => {
+  const respuesta = await fetch(`${API_URL}/auth/primer-acceso`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ clave, password }),
+  });
+  if (!respuesta.ok) {
+    const cuerpo = await respuesta.json().catch(() => ({}));
+    throw new ErrorPrimerAcceso(
+      cuerpo.message ?? "ra.notification.http_error",
+      cuerpo.fallas ?? [],
+    );
+  }
+};
+
 export const authProvider: AuthProvider = {
   // Se llama al enviar el formulario de inicio de sesión.
   // "username" es el correo (personal) o la clave de acceso (tutores).
@@ -44,7 +87,8 @@ export const authProvider: AuthProvider = {
       body: JSON.stringify({ usuario: username, password }),
     });
     if (!respuesta.ok) {
-      throw new Error("auth.login_failed");
+      //^ el servidor responde con una llave de traducción (ej. auth.login_failed)
+      throw new Error(await leerMensajeError(respuesta, "auth.login_failed"));
     }
     const sesion: Sesion = await respuesta.json();
     localStorage.setItem(LLAVE_SESION, JSON.stringify(sesion));
