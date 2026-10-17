@@ -15,56 +15,40 @@ import bcrypt from "bcrypt";
 import crypto from "node:crypto";
 
 /**
- * Número de "rondas" (cost factor) de bcrypt.
+ * ? Número de "rondas" (cost factor) de bcrypt.
  *
  * bcrypt repite su cálculo 2^RONDAS veces. Con 12 rondas son 4,096
- * repeticiones: tarda unos ~250 ms en una computadora normal. Para un
- * usuario que inicia sesión es imperceptible, pero para un atacante que
- * quiere probar millones de contraseñas es muchísimo tiempo.
- *
- * Si en el futuro las computadoras son más rápidas, basta con subir
- * este número; los hashes viejos siguen funcionando porque cada hash
+ * repeticiones. Si en el futuro las computadoras son más rápidas, habrá
+ * que subir este número; los hashes viejos siguen funcionando porque cada hash
  * guarda dentro de sí con cuántas rondas se generó.
  */
 export const RONDAS_BCRYPT = 12;
 
 /**
- * Convierte una contraseña en texto plano a un hash de bcrypt.
+ * ? Convierte una contraseña en texto plano a un hash de bcrypt.
  *
  * bcrypt genera automáticamente un "salt" (valor aleatorio) distinto
  * para cada contraseña, así dos tutores con la misma contraseña tendrán
- * hashes completamente diferentes.
- *
- * Ejemplo de resultado:
- *   $2b$12$Nm/QzdKElD2wWxYqhv1U3uJEeVJE9wYBnRmQ6IZh1By8VWsQLTouW
- *   └┬┘└┬┘└────────── salt ──────┘└──────── hash ─────────────┘
- *  versión rondas
- *
- * @param {string} contrasena contraseña en texto plano
- * @returns {Promise<string>} hash listo para guardarse en db.json
+ * hashes completamente diferentes. Toma la contraseña escrita por el usuario
+ * y regresa el hash que se guardara en la db
  */
 export async function hashearContrasena(contrasena) {
   return bcrypt.hash(contrasena, RONDAS_BCRYPT);
 }
 
 /**
- * Compara una contraseña escrita por el usuario contra el hash guardado.
+ * ? Compara una contraseña escrita por el usuario contra el hash guardado.
  *
- * No "descifra" el hash (eso es imposible): bcrypt toma el salt que viene
- * dentro del hash, vuelve a calcular el hash de la contraseña escrita y
- * revisa si ambos coinciden.
- *
- * @param {string} contrasena contraseña escrita en el login
- * @param {string|null} hash hash guardado en db.json
- * @returns {Promise<boolean>} true si la contraseña es correcta
+ * bcrypt toma el salt que viene dentro del hash, vuelve a calcular el hash 
+ * de la contraseña y revisa si ambos coinciden.
  */
 export async function compararContrasena(contrasena, hash) {
-  if (!hash) return false; // cuenta sin contraseña (tutor sin primer acceso)
+  if (!hash) return false; //^ cuenta sin contraseña (tutor sin primer acceso)
   return bcrypt.compare(contrasena, hash);
 }
 
 /**
- * Sesiones activas, guardadas en memoria: token -> datos del usuario.
+ * ? Sesiones activas, guardadas en memoria: token -> datos del usuario.
  *
  * Al iniciar sesión se genera un token aleatorio que el navegador manda
  * en cada petición (encabezado "Authorization: Bearer <token>").
@@ -96,7 +80,7 @@ export function cerrarSesion(token) {
 }
 
 /**
- * Genera una clave de acceso para tutores, por ejemplo "PI-7K3M9Q".
+ * ? Genera una clave de acceso para tutores, por ejemplo "PI-7K3M9Q".
  * Se omiten letras y números que se confunden al dictarlos (0/O, 1/I/L).
  */
 export function generarClaveAcceso() {
