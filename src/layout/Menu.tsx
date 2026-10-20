@@ -83,6 +83,10 @@ export const Menu = () => {
           />
           <RaMenu.ResourceItem name="infantes" />
           <RaMenu.ResourceItem name="estancias" />
+          <RaMenu.ResourceItem
+            name="bitacora"
+            primaryText={translate("menu.bitacora")}
+          />
           {reportes}
         </RaMenu>
       );

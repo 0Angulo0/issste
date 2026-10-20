@@ -55,7 +55,7 @@ export class ErrorPrimerAcceso extends Error {
 }
 
 /**
- * ? Primer acceso del tutor: crea su contraseña con la clave de la estancia.
+ * ? Primer acceso: crea la contraseña con la clave (PI- familias, AC- personal).
  * No es parte de la interfaz AuthProvider de react-admin, por eso es una
  * función aparte que usa pages/PrimerAcceso.tsx.
  */
@@ -75,6 +75,8 @@ export const crearContrasenaPrimerAcceso = async (
       cuerpo.fallas ?? [],
     );
   }
+  //^ el servidor regresa con qué usuario entrar (clave PI- o correo del personal)
+  return (await respuesta.json()) as { usuario: string };
 };
 
 export const authProvider: AuthProvider = {
@@ -108,8 +110,10 @@ export const authProvider: AuthProvider = {
   },
 
   // Se llama cuando la API responde con error.
+  //? Solo 401 (sin sesión o sesión vencida) cierra la sesión. Un 403 significa
+  //? "no tienes permiso para ESTE dato": se muestra el error y el usuario sigue dentro.
   async checkError({ status }: { status: number }) {
-    if (status === 401 || status === 403) {
+    if (status === 401) {
       localStorage.removeItem(LLAVE_SESION);
       throw new Error("auth.session_expired");
     }

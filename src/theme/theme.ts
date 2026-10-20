@@ -53,6 +53,8 @@ export const tema: RaThemeOptions = {
     text: { primary: colores.negro, secondary: "#444" },
   },
   shape: { borderRadius: 8 },
+  //^ menú lateral más ancho para que "Cumplimiento de captura" no se corte
+  sidebar: { width: 280, closedWidth: 56 },
   typography: {
     // Mínimo 16px para texto normal (legibilidad).
     fontSize: 16,
@@ -97,6 +99,13 @@ export const tema: RaThemeOptions = {
             borderWidth: 3,
           },
         },
+      },
+    },
+    //? Tablas anchas en celular: solo la tabla se desplaza a los lados, no
+    //? toda la página (las tablas de datos son una excepción de WCAG 1.4.10).
+    RaDataTable: {
+      styleOverrides: {
+        root: { maxWidth: "100%", overflowX: "auto" },
       },
     },
     MuiFormHelperText: {

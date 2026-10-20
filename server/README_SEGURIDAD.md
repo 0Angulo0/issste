@@ -2,7 +2,7 @@
 
 Este documento explica **cómo y por qué** se protegen las contraseñas en el Padrón Infantil. Está pensado para quien mantenga el sistema y no necesita conocimientos previos de criptografía.
 
-> Estado: listos el login con bcrypt, las sesiones, el **primer acceso del tutor**, las **reglas de contraseña segura** y el **límite de intentos** (secciones 4 a 7). Falta la generación de la clave al dar de alta un infante, que se hará con la pantalla de alta de infantes.
+> Estado: completo para el prototipo. Contraseñas con bcrypt, sesiones, primer acceso (familias y personal), reglas de contraseña, límite de intentos, restablecer acceso, **permisos por rol en el servidor** y **bitácora de auditoría**.
 
 ---
 
@@ -20,11 +20,11 @@ Por eso **nunca** guardamos la contraseña. Guardamos un **hash**: el resultado 
 
 bcrypt es un algoritmo diseñado específicamente para contraseñas. Tiene tres propiedades importantes:
 
-| Propiedad | Qué significa | Por qué importa |
-|---|---|---|
-| **Un solo sentido** | Del hash no se puede obtener la contraseña. | Si roban la base de datos, no obtienen las contraseñas. |
-| **Salt automático** | Antes de calcular, bcrypt agrega un valor aleatorio (salt) distinto para cada contraseña. | Dos personas con la misma contraseña tienen hashes diferentes, y no sirven las "tablas" de hashes precalculados. |
-| **Lento a propósito** | Repite su cálculo 2^rondas veces (usamos 12 rondas = 4,096 veces, unos 250 ms). | Un usuario no nota la espera, pero un atacante que quiere probar millones de contraseñas tardaría años. |
+| Propiedad             | Qué significa                                                                             | Por qué importa                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Un solo sentido**   | Del hash no se puede obtener la contraseña.                                               | Si roban la base de datos, no obtienen las contraseñas.                                                          |
+| **Salt automático**   | Antes de calcular, bcrypt agrega un valor aleatorio (salt) distinto para cada contraseña. | Dos personas con la misma contraseña tienen hashes diferentes, y no sirven las "tablas" de hashes precalculados. |
+| **Lento a propósito** | Repite su cálculo 2^rondas veces (usamos 12 rondas = 4,096 veces, unos 250 ms).           | Un usuario no nota la espera, pero un atacante que quiere probar millones de contraseñas tardaría años.          |
 
 Algoritmos como MD5 o SHA-256 **no** sirven para contraseñas porque son muy rápidos: una tarjeta de video puede probar miles de millones por segundo.
 
@@ -47,11 +47,13 @@ El salt y las rondas viajan **dentro** del hash. Por eso no hay que guardarlos a
 - El código del navegador lo puede leer y modificar cualquier persona.
 
 | Archivo | Qué hace |
-|---|---|
-| `server/seguridad.js` | Concentra todo: `hashearContrasena()`, `compararContrasena()`, sesiones, claves de acceso y límite de intentos. |
-| `server/server.js` | Rutas `POST /auth/login`, `POST /auth/primer-acceso` y `POST /auth/logout`. Quita `passwordHash` de **todas** las respuestas y de **todas** las escrituras de la API. |
-| `server/semilla.js` | Crea `db.json` con datos de ejemplo. Las contraseñas de prueba se guardan ya hasheadas. |
-| `src/utils/reglasContrasena.js` | Reglas de contraseña segura. Es **un solo archivo compartido** por navegador y servidor, para que las reglas nunca se contradigan. |
+| --- | --- |
+| `server/seguridad.js` | `hashearContrasena()`, `compararContrasena()`, sesiones (crear, cerrar, cerrar todas las de una cuenta), claves PI-/AC- y límite de intentos. |
+| `server/server.js` | Rutas `/auth/*` (login, primer acceso, logout, restablecer), altas de infantes y usuarios. Quita secretos de **todas** las respuestas y escrituras. |
+| `server/permisos.js` | Qué ve y qué hace cada rol (sección 8). |
+| `server/bitacora.js` | Bitácora de auditoría (sección 9). |
+| `server/semilla.js` | Crea `db.json` con datos de ejemplo; las contraseñas de prueba se guardan ya hasheadas. |
+| `src/utils/reglasContrasena.js` | Reglas de contraseña segura, **compartidas** por navegador y servidor. |
 | `src/providers/authProvider.ts` | Envía usuario y contraseña al servidor y guarda el **token** que recibe, nunca la contraseña. |
 | `src/pages/LoginPage.tsx`, `src/pages/PrimerAcceso.tsx` | Pantallas de inicio de sesión y de creación de contraseña. |
 
@@ -95,28 +97,36 @@ Decisiones de seguridad en este flujo:
 - **Token, no contraseña.** Después del login el navegador solo tiene un token aleatorio de 64 caracteres. Al cerrar sesión el servidor lo invalida.
 - **Excepción consciente:** a un tutor cuya clave existe pero aún no tiene contraseña le decimos que vaya a "Primer acceso". Esto revela que la clave existe, pero las claves son aleatorias (31⁶ ≈ 887 millones de combinaciones) y el límite de intentos impide adivinarlas.
 
-## 5. Primer acceso del tutor
+## 5. Primer acceso (familias y personal) y restablecer acceso
 
-1. Al dar de alta a un infante, el sistema crea una cuenta de tutor con una **clave de acceso** aleatoria (`PI-7K3M9Q`) y **sin contraseña** (`passwordHash: null`). La estancia entrega la clave a la familia.
-2. El tutor abre "¿Es tu primera vez? Crea tu contraseña" (`/primer-acceso`), escribe la clave y su nueva contraseña dos veces.
-3. Mientras escribe, ve qué requisitos cumple (✓/✗). Esto es solo una ayuda.
-4. El servidor (`POST /auth/primer-acceso`) hace la revisión real:
-   - la clave debe existir y **no haberse usado** (si ya tiene contraseña: 400, "clave no válida o ya usada");
-   - la contraseña debe cumplir **todas** las reglas, incluyendo la de datos personales;
-   - si todo está bien: `bcrypt.hash` y se guarda **solo** el hash.
-5. El tutor regresa al login con su clave ya escrita y entra con su nueva contraseña.
+Nadie recibe una contraseña inventada por otra persona: cada quien crea la suya con una **clave de un solo uso**.
 
-Si una familia pierde su contraseña, la estancia debe generar una clave nueva (se implementará con la gestión de infantes).
+| Quién | Cómo recibe su clave | Con qué entra después |
+| --- | --- | --- |
+| Padre, madre o tutor | La estancia da de alta al infante → el servidor crea la cuenta del tutor con clave `PI-XXXXXX` y `passwordHash: null` | Su clave `PI-…` + su contraseña |
+| Personal (admin, coordinación, estancia) | El administrador lo da de alta → clave de activación `AC-XXXXXX` | Su correo + su contraseña (la clave `AC-` deja de servir) |
+
+Pasos en "¿Es tu primera vez?" (`/primer-acceso`, ruta `POST /auth/primer-acceso`):
+
+1. La persona escribe su clave y su nueva contraseña dos veces; mientras escribe, ve qué requisitos cumple (✓/✗).
+2. El servidor revisa que la clave exista, que la cuenta **no tenga contraseña todavía** y que esté activa (una cuenta dada de baja no se puede activar).
+3. Valida **todas** las reglas (incluida la de datos personales) y guarda **solo** `bcrypt.hash(contraseña, 12)`.
+4. Regresa al login con el usuario ya escrito (clave o correo) para entrar con la contraseña nueva.
+
+**Restablecer acceso** (`POST /auth/restablecer`, botón con confirmación):
+- La **estancia** puede restablecer a las familias de sus infantes; el **admin**, al personal.
+- El servidor genera una clave nueva, **borra la contraseña** (`passwordHash: null`) y **cierra todas las sesiones abiertas** de esa cuenta. La persona vuelve a pasar por "Primer acceso".
+- La pantalla muestra la clave nueva una sola vez, en un aviso, para entregarla.
 
 ## 6. Reglas de contraseña segura
 
-| Regla | Dónde se revisa |
-|---|---|
-| Al menos 8 caracteres | navegador y servidor |
-| Al menos una mayúscula, una minúscula, un número y un carácter especial | navegador y servidor |
-| Sin espacios | navegador y servidor |
-| No ser una contraseña común (`password`, `qwerty`, `admin`, `issste`…). Se comparan solo las letras: `Password123!` cuenta como `password` | navegador y servidor |
-| No contener el nombre del tutor, el nombre o apellidos de sus hijos, su ciudad, ni fechas de nacimiento (`2024`, `1502`, `0215`, `150224`, `15022024`, `20240215`) | **solo servidor** |
+| Regla                                                                                                                                                              | Dónde se revisa      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
+| Al menos 8 caracteres                                                                                                                                              | navegador y servidor |
+| Al menos una mayúscula, una minúscula, un número y un carácter especial                                                                                            | navegador y servidor |
+| Sin espacios                                                                                                                                                       | navegador y servidor |
+| No ser una contraseña común (`password`, `qwerty`, `admin`, `issste`…). Se comparan solo las letras: `Password123!` cuenta como `password`                         | navegador y servidor |
+| No contener el nombre del tutor, el nombre o apellidos de sus hijos, su ciudad, ni fechas de nacimiento (`2024`, `1502`, `0215`, `150224`, `15022024`, `20240215`) | **solo servidor**    |
 
 ¿Por qué la última regla solo la revisa el servidor? Para revisarla en el navegador habría que enviarle el nombre, la fecha de nacimiento y la ciudad de la familia a **cualquiera que escriba una clave**. Preferimos no exponer esos datos; si la contraseña los contiene, el servidor responde con la lista de reglas que fallaron y la pantalla marca esa regla con ✗.
 
@@ -125,26 +135,77 @@ Para agregar o cambiar una regla basta con editar `src/utils/reglasContrasena.js
 ## 7. Límite de intentos y protección de la API
 
 - **5 intentos fallidos** desde la misma IP con el mismo usuario (o la misma clave en primer acceso) bloquean ese usuario en esa IP durante **15 minutos** (respuesta 429). Se configura con `MAX_INTENTOS` y `MINUTOS_BLOQUEO` en `seguridad.js`.
-- Toda la API, salvo `/auth/*`, exige un token válido (si no lo hay: 401).
-- Ninguna respuesta incluye `passwordHash`, y ninguna petición puede escribirlo (`PATCH /tutores/1 { passwordHash: ... }` se ignora). Las contraseñas **solo** cambian por `/auth/*`.
+- Toda la API, salvo `/auth/login`, `/auth/primer-acceso` y `/auth/logout`, exige un token válido (si no lo hay: **401** y el navegador cierra la sesión).
+- **Campos que solo escribe el servidor**: `id`, `passwordHash`, `claveAcceso`, `claveActivacion`, `registradoPor` y `expediente` se borran de cualquier petición que mande el navegador.
+- **Nunca se envían secretos**: ninguna respuesta incluye `passwordHash` ni `claveActivacion`. En su lugar va `tieneContrasena: true/false` (para mostrar "Falta primer acceso").
+- `PUT` se trata como `PATCH`: solo cambia los campos enviados. Si no, editar un registro desde la pantalla borraría campos que el navegador nunca recibe (como el hash).
+- **401 ≠ 403**: 401 = "no hay sesión" (se cierra la sesión); 403 = "no tienes permiso para este dato" (se muestra el error y la persona sigue dentro).
 
-## 8. Limitaciones conocidas del servidor de desarrollo
+## 8. Permisos por rol (server/permisos.js)
 
-Este servidor es para **desarrollo y demostración**. Antes de usarlo en producción hay que:
+Ocultar un botón en la pantalla **no** es seguridad: cualquiera puede llamar la API directamente. Por eso el servidor revisa cada petición con la sesión de quien la hace.
 
-1. Guardar las sesiones y el contador de intentos en una base de datos, o usar JWT firmados con expiración. Hoy viven en memoria y se pierden al reiniciar el servidor.
-2. Servir todo por **HTTPS**, para que la contraseña no viaje en texto plano por la red.
-3. Restringir por rol las rutas de la API (se irá agregando pantalla por pantalla).
-4. Agregar el restablecimiento de contraseña del personal desde el panel del administrador.
+**Alcance** de cada rol (qué infantes y estancias "le tocan"):
 
-## 9. Cuentas de prueba
+| Rol | Alcance |
+| --- | --- |
+| admin | Todo |
+| coordinador | Estancias de **su región** y sus infantes |
+| estancia | **Su estancia** y sus infantes |
+| tutor | **Sus hijos** y la estancia de cada uno |
 
-Se generan con `npm run semilla` (después hay que **reiniciar** `npm run server`, porque el servidor guarda los datos en memoria). Todas usan la contraseña `Padron#2026`.
+**Qué puede hacer** cada rol en cada colección (D = nadie puede borrar; las personas se "dan de baja"):
+
+| Colección | Leer | Crear | Editar |
+| --- | --- | --- | --- |
+| infantes | todos (dentro de su alcance) | admin, estancia (ruta propia, crea también al tutor) | admin, estancia (sin cambiar estancia ni tutor) |
+| mediciones | todos (dentro de su alcance) | estancia (rangos válidos, sin fechas futuras, 1 por día) | **solo admin** (corrección con motivo obligatorio) |
+| estancias | todos (dentro de su alcance) | — | admin |
+| tutores | admin, estancia (para ver la clave de la familia) | — (los crea el alta de infante) | admin |
+| usuarios | admin | admin (ruta propia, con clave AC-) | admin (no puede darse de baja a sí mismo) |
+| bitacora | admin | — (solo el servidor) | — |
+| indicadores | admin, coordinador, estancia (totales de su alcance) | — | — |
+
+Cómo se aplica: antes de json-server se agregan filtros a la búsqueda (ej. `?infanteId=1&infanteId=2` con los permitidos) y se rechaza lo prohibido (403). Después, `filtrarRespuesta` quita de la respuesta cualquier registro fuera del alcance (red de seguridad). Pedir por id un registro ajeno responde **404**, como si no existiera.
+
+## 9. Bitácora de auditoría (server/bitacora.js)
+
+Equivale a la colección `log` del ejemplo del profe. Registra **quién** (usuario y rol), **qué** (acción), **sobre qué** (recurso y registro), **cuándo** (fecha y hora) y un **detalle**:
+
+- Inicios de sesión correctos y **fallidos** (en el detalle va el usuario que se intentó, nunca la contraseña).
+- Primer acceso, altas, ediciones, bajas, restablecimientos.
+- Correcciones de mediciones **con su motivo**.
+
+Solo la escribe el servidor; nadie puede crear, editar ni borrar registros de la bitácora por la API. El administrador la consulta en "Bitácora" (solo lectura, con filtros).
+
+## 10. Limitaciones conocidas del servidor de desarrollo
+
+Este servidor es un **prototipo**. En el repo final (Express + MongoDB, como el ejemplo del profe) hay que:
+
+1. Usar **JWT firmados con expiración** (llave en `.env`) en lugar de sesiones en memoria, y guardar el contador de intentos fuera de la memoria.
+2. Servir todo por **HTTPS** (certificados en backend y en Vite).
+3. Usar **argon2** si así lo pide el ejemplo (mismo flujo: `hash` al crear, `verify` con `await` al iniciar sesión).
+4. Validar en Mongo los filtros que llegan en la URL (no pasar `req.query` directo a `find`, para evitar inyección NoSQL).
+5. Revisar el token en **todas** las rutas, incluidas `POST`, `PUT` y `DELETE`.
+
+## 11. Cuentas de prueba
+
+Se generan con `npm run semilla` (después hay que **reiniciar** `npm run server`, porque el servidor guarda los datos en memoria). Contraseña: `Padron#2026`.
 
 | Usuario | Rol |
-|---|---|
+| --- | --- |
 | `admin@issste.gob.mx` | Administrador |
 | `coordinador.centro@issste.gob.mx` | Coordinador regional (Centro) |
-| `personal.ebdi35@issste.gob.mx` | Personal de estancia (EBDI 35) |
-| `PI-7K3M9Q` | Tutor de Sofía Martínez López |
-| `PI-4H8R2T` | Tutor de Mateo, **sin contraseña** (para probar el primer acceso; por ejemplo `Girasol#Azul7`) |
+| `coordinador.norte@issste.gob.mx` | Coordinador regional (Norte) |
+| `personal.ebdi35@issste.gob.mx` | Personal de estancia (EBDI 35 Coyoacán) |
+| `personal.ebdi12@issste.gob.mx` | Personal de estancia (EBDI 12 Tlalpan) |
+| `personal.ebdi41@issste.gob.mx` | Personal dado de baja (no puede entrar) |
+| `PI-7K3M9Q` | Tutora de Sofía y Diego (dos hijos) |
+| `PI-9RT2WK` | Tutora de Regina y Emiliano (EBDI 12) |
+
+Sin contraseña, para probar "Primer acceso" (por ejemplo con `Girasol#Azul7`):
+
+| Clave | Cuenta |
+| --- | --- |
+| `PI-4H8R2T` | Tutor de Mateo |
+| `AC-7H4K2M` | Personal nuevo (`nuevo.personal@issste.gob.mx`, EBDI 07) |

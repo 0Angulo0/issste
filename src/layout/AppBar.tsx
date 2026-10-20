@@ -30,7 +30,7 @@ const BarraDerecha = () => {
         <Box
           component="span"
           sx={{
-            display: "flex",
+            display: { xs: "none", md: "flex" }, //^ en celular no cabe
             alignItems: "center",
             gap: 0.5,
             fontWeight: 700,
@@ -44,9 +44,16 @@ const BarraDerecha = () => {
         <Chip
           label={translate(`roles.${rol}`)}
           variant="outlined"
-          sx={{ borderColor: colores.dorado, borderWidth: 2, fontWeight: 600 }}
+          sx={{
+            display: { xs: "none", md: "flex" }, //^ en celular no cabe
+            borderColor: colores.dorado,
+            borderWidth: 2,
+            fontWeight: 600,
+          }}
         />
       )}
+      {/* "Cerrar sesión" SIEMPRE visible, también en celular: en Yollot no
+          se podía llegar a este botón (hallazgo de la Evidencia 1.1) */}
       <Button
         variant="outlined"
         color="primary"
@@ -65,6 +72,8 @@ export const AppBar = () => {
     <RaAppBar
       userMenu={false}
       toolbar={<BarraDerecha />}
+      //^ fija también en celular: react-admin la esconde al hacer scroll y con ella "Cerrar sesión"
+      alwaysOn
       // Barra blanca: el logo oficial no tiene suficiente contraste sobre guinda.
       sx={{
         backgroundColor: "#fff",
@@ -78,11 +87,16 @@ export const AppBar = () => {
         component="img"
         src={logo}
         alt={translate("app.logo_alt")}
-        sx={{ height: 40, mr: 2 }}
+        sx={{ height: { xs: 32, sm: 40 }, mr: 2 }}
       />
       <Typography
         component="span"
-        sx={{ fontWeight: 700, fontSize: "1.25rem", color: colores.guinda }}
+        sx={{
+          display: { xs: "none", sm: "inline" }, //^ en celular basta el logo
+          fontWeight: 700,
+          fontSize: "1.25rem",
+          color: colores.guinda,
+        }}
       >
         {translate("app.nombre")}
       </Typography>

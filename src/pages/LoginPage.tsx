@@ -70,7 +70,12 @@ export const LoginPage = () => {
                 {" "}
                 <Link
                   component={RouterLink}
-                  to={`/primer-acceso?clave=${encodeURIComponent(ultimoUsuario)}`}
+                  //^ la clave se precarga solo si es de familia (el personal usa correo)
+                  to={
+                    ultimoUsuario.includes("@")
+                      ? "/primer-acceso"
+                      : `/primer-acceso?clave=${encodeURIComponent(ultimoUsuario)}`
+                  }
                 >
                   {translate("login.ir_primer_acceso")}
                 </Link>

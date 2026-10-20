@@ -4,7 +4,8 @@
       "id": 1,
       "nombre": "Patricia Ramírez Díaz",
       "email": "admin@issste.gob.mx",
-      "passwordHash": "$2b$12$2K/51L5MR27GH.RB1ZeoQOVP/589.uiPAohd1YThYv59HCUUkLWIq",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "claveActivacion": null,
       "rol": "admin",
       "estanciaId": null,
       "region": null,
@@ -14,7 +15,8 @@
       "id": 2,
       "nombre": "Miguel Ángel Torres",
       "email": "coordinador.centro@issste.gob.mx",
-      "passwordHash": "$2b$12$2K/51L5MR27GH.RB1ZeoQOVP/589.uiPAohd1YThYv59HCUUkLWIq",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "claveActivacion": null,
       "rol": "coordinador",
       "estanciaId": null,
       "region": "Centro",
@@ -24,7 +26,8 @@
       "id": 3,
       "nombre": "Laura Hernández Ruiz",
       "email": "personal.ebdi35@issste.gob.mx",
-      "passwordHash": "$2b$12$2K/51L5MR27GH.RB1ZeoQOVP/589.uiPAohd1YThYv59HCUUkLWIq",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "claveActivacion": null,
       "rol": "estancia",
       "estanciaId": 35,
       "region": "Centro",
@@ -34,9 +37,54 @@
       "id": 4,
       "nombre": "Patricia Soto Vega",
       "email": "personal.ebdi41@issste.gob.mx",
-      "passwordHash": "$2b$12$2K/51L5MR27GH.RB1ZeoQOVP/589.uiPAohd1YThYv59HCUUkLWIq",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "claveActivacion": null,
       "rol": "estancia",
       "estanciaId": 41,
+      "region": "Centro",
+      "activo": true
+    },
+    {
+      "id": 5,
+      "nombre": "Raúl Garza Treviño",
+      "email": "coordinador.norte@issste.gob.mx",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "claveActivacion": null,
+      "rol": "coordinador",
+      "estanciaId": null,
+      "region": "Norte",
+      "activo": true
+    },
+    {
+      "id": 6,
+      "nombre": "Elena Morales Cruz",
+      "email": "personal.ebdi12@issste.gob.mx",
+      "passwordHash": null,
+      "claveActivacion": "AC-V3RFAC",
+      "rol": "estancia",
+      "estanciaId": 12,
+      "region": "Centro",
+      "activo": false
+    },
+    {
+      "id": 7,
+      "nombre": "Óscar Villarreal Leal",
+      "email": "personal.ebdi03@issste.gob.mx",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "claveActivacion": null,
+      "rol": "estancia",
+      "estanciaId": 3,
+      "region": "Norte",
+      "activo": true
+    },
+    {
+      "id": 8,
+      "nombre": "Andrea Núñez Ríos",
+      "email": "nuevo.personal@issste.gob.mx",
+      "passwordHash": null,
+      "claveActivacion": "AC-7H4K2M",
+      "rol": "estancia",
+      "estanciaId": 7,
       "region": "Centro",
       "activo": false
     }
@@ -46,10 +94,11 @@
       "id": 1,
       "nombre": "Ana López Pérez",
       "claveAcceso": "PI-7K3M9Q",
-      "passwordHash": "$2b$12$2K/51L5MR27GH.RB1ZeoQOVP/589.uiPAohd1YThYv59HCUUkLWIq",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
       "ciudad": "Ciudad de México",
       "infanteIds": [
-        1
+        1,
+        2
       ]
     },
     {
@@ -59,7 +108,388 @@
       "passwordHash": null,
       "ciudad": "Ciudad de México",
       "infanteIds": [
-        2
+        3
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Lucía Herrera Gómez",
+      "claveAcceso": "PI-9RT2WK",
+      "passwordHash": "$2b$12$lmCoON3I4LLI1BEjBy3nMedtNGpr4pTiEdbdPqzXOQpVr4OPk19p6",
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Carlos Hernández Ruiz",
+      "claveAcceso": "PI-KE85EM",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        6
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "José Ruiz González",
+      "claveAcceso": "PI-CUJBM4",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        7
+      ]
+    },
+    {
+      "id": 6,
+      "nombre": "Guadalupe Rodríguez Flores",
+      "claveAcceso": "PI-78JA26",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        8
+      ]
+    },
+    {
+      "id": 7,
+      "nombre": "Carlos Reyes Martínez",
+      "claveAcceso": "PI-YR9E9G",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        9
+      ]
+    },
+    {
+      "id": 8,
+      "nombre": "Claudia Hernández Reyes",
+      "claveAcceso": "PI-DVK3W5",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        10
+      ]
+    },
+    {
+      "id": 9,
+      "nombre": "Luis Pérez Jiménez",
+      "claveAcceso": "PI-RPRVV8",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        11
+      ]
+    },
+    {
+      "id": 10,
+      "nombre": "Gabriela Gómez Jiménez",
+      "claveAcceso": "PI-TD7QF7",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        12
+      ]
+    },
+    {
+      "id": 11,
+      "nombre": "Gabriela Pérez Martínez",
+      "claveAcceso": "PI-TFCN59",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        13
+      ]
+    },
+    {
+      "id": 12,
+      "nombre": "Juana Mendoza Ruiz",
+      "claveAcceso": "PI-ZNCY99",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        14
+      ]
+    },
+    {
+      "id": 13,
+      "nombre": "Juan Pérez Ruiz",
+      "claveAcceso": "PI-T47BUA",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        15
+      ]
+    },
+    {
+      "id": 14,
+      "nombre": "Carlos Gómez Ruiz",
+      "claveAcceso": "PI-7UG7H2",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        16
+      ]
+    },
+    {
+      "id": 15,
+      "nombre": "Juana Rodríguez Torres",
+      "claveAcceso": "PI-KQ5WF7",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        17
+      ]
+    },
+    {
+      "id": 16,
+      "nombre": "Claudia González Morales",
+      "claveAcceso": "PI-6PFP49",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        18
+      ]
+    },
+    {
+      "id": 17,
+      "nombre": "Rosa Cruz Pérez",
+      "claveAcceso": "PI-F735BX",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        19
+      ]
+    },
+    {
+      "id": 18,
+      "nombre": "Rosa Cruz Díaz",
+      "claveAcceso": "PI-EMG6TN",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        20
+      ]
+    },
+    {
+      "id": 19,
+      "nombre": "Guadalupe Pérez García",
+      "claveAcceso": "PI-XM37V5",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        21
+      ]
+    },
+    {
+      "id": 20,
+      "nombre": "Carlos García Morales",
+      "claveAcceso": "PI-D48ZM5",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        22
+      ]
+    },
+    {
+      "id": 21,
+      "nombre": "Carlos Gómez Martínez",
+      "claveAcceso": "PI-689AH5",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        23
+      ]
+    },
+    {
+      "id": 22,
+      "nombre": "Alejandra Gómez Hernández",
+      "claveAcceso": "PI-98GUM7",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        24
+      ]
+    },
+    {
+      "id": 23,
+      "nombre": "Claudia Rodríguez Martínez",
+      "claveAcceso": "PI-AZKB8E",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        25
+      ]
+    },
+    {
+      "id": 24,
+      "nombre": "María Morales González",
+      "claveAcceso": "PI-DBKYP2",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        26
+      ]
+    },
+    {
+      "id": 25,
+      "nombre": "Carlos Torres Vázquez",
+      "claveAcceso": "PI-FB6Z29",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        27
+      ]
+    },
+    {
+      "id": 26,
+      "nombre": "Alejandra Flores Díaz",
+      "claveAcceso": "PI-K635PP",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        28
+      ]
+    },
+    {
+      "id": 27,
+      "nombre": "Verónica Ruiz Vázquez",
+      "claveAcceso": "PI-MHVCQC",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        29
+      ]
+    },
+    {
+      "id": 28,
+      "nombre": "Gabriela Martínez Rodríguez",
+      "claveAcceso": "PI-7THGUT",
+      "passwordHash": null,
+      "ciudad": "Ciudad de México",
+      "infanteIds": [
+        30
+      ]
+    },
+    {
+      "id": 29,
+      "nombre": "Guadalupe Torres López",
+      "claveAcceso": "PI-XMFMMW",
+      "passwordHash": null,
+      "ciudad": "Monterrey",
+      "infanteIds": [
+        31
+      ]
+    },
+    {
+      "id": 30,
+      "nombre": "Juana Mendoza Jiménez",
+      "claveAcceso": "PI-UJ6JAT",
+      "passwordHash": null,
+      "ciudad": "Monterrey",
+      "infanteIds": [
+        32
+      ]
+    },
+    {
+      "id": 31,
+      "nombre": "José Mendoza Hernández",
+      "claveAcceso": "PI-P8RQ36",
+      "passwordHash": null,
+      "ciudad": "Monterrey",
+      "infanteIds": [
+        33
+      ]
+    },
+    {
+      "id": 32,
+      "nombre": "Juana García Jiménez",
+      "claveAcceso": "PI-59ERT4",
+      "passwordHash": null,
+      "ciudad": "Monterrey",
+      "infanteIds": [
+        34
+      ]
+    },
+    {
+      "id": 33,
+      "nombre": "José Reyes Flores",
+      "claveAcceso": "PI-TM5NMU",
+      "passwordHash": null,
+      "ciudad": "Monterrey",
+      "infanteIds": [
+        35
+      ]
+    },
+    {
+      "id": 34,
+      "nombre": "Guadalupe Morales Jiménez",
+      "claveAcceso": "PI-DWXQD6",
+      "passwordHash": null,
+      "ciudad": "Monterrey",
+      "infanteIds": [
+        36
+      ]
+    },
+    {
+      "id": 35,
+      "nombre": "Juan Díaz Pérez",
+      "claveAcceso": "PI-YG8M63",
+      "passwordHash": null,
+      "ciudad": "Guadalajara",
+      "infanteIds": [
+        37
+      ]
+    },
+    {
+      "id": 36,
+      "nombre": "Luis Morales Ruiz",
+      "claveAcceso": "PI-PMX458",
+      "passwordHash": null,
+      "ciudad": "Guadalajara",
+      "infanteIds": [
+        38
+      ]
+    },
+    {
+      "id": 37,
+      "nombre": "Juana Reyes Torres",
+      "claveAcceso": "PI-GTHGMK",
+      "passwordHash": null,
+      "ciudad": "Guadalajara",
+      "infanteIds": [
+        39
+      ]
+    },
+    {
+      "id": 38,
+      "nombre": "Juana González Pérez",
+      "claveAcceso": "PI-SQPYKR",
+      "passwordHash": null,
+      "ciudad": "Guadalajara",
+      "infanteIds": [
+        40
+      ]
+    },
+    {
+      "id": 39,
+      "nombre": "Gabriela Sánchez Pérez",
+      "claveAcceso": "PI-UGB7NK",
+      "passwordHash": null,
+      "ciudad": "Guadalajara",
+      "infanteIds": [
+        41
+      ]
+    },
+    {
+      "id": 40,
+      "nombre": "Claudia Flores Ramírez",
+      "claveAcceso": "PI-ZTYPX8",
+      "passwordHash": null,
+      "ciudad": "Guadalajara",
+      "infanteIds": [
+        42
       ]
     }
   ],
@@ -134,43 +564,413 @@
     },
     {
       "id": 2,
+      "nombre": "Diego",
+      "apellidos": "Martínez López",
+      "fechaNacimiento": "2021-11-08",
+      "sexo": "M",
+      "expediente": "PI-02482",
+      "estanciaId": 35,
+      "tutorId": 1
+    },
+    {
+      "id": 3,
       "nombre": "Mateo",
       "apellidos": "Castillo Ruiz",
       "fechaNacimiento": "2023-08-03",
       "sexo": "M",
-      "expediente": "PI-02482",
+      "expediente": "PI-02483",
       "estanciaId": 35,
       "tutorId": 2
     },
     {
-      "id": 3,
-      "nombre": "Valentina",
-      "apellidos": "Gómez Silva",
-      "fechaNacimiento": "2024-11-20",
-      "sexo": "F",
-      "expediente": "PI-02483",
-      "estanciaId": 12,
-      "tutorId": null
-    },
-    {
       "id": 4,
-      "nombre": "Diego",
-      "apellidos": "Hernández Paz",
-      "fechaNacimiento": "2023-05-10",
-      "sexo": "M",
+      "nombre": "Regina",
+      "apellidos": "Herrera Gómez",
+      "fechaNacimiento": "2022-05-21",
+      "sexo": "F",
       "expediente": "PI-02484",
-      "estanciaId": 41,
-      "tutorId": null
+      "estanciaId": 12,
+      "tutorId": 3
     },
     {
       "id": 5,
-      "nombre": "Camila",
-      "apellidos": "Reyes Luna",
-      "fechaNacimiento": "2024-06-01",
-      "sexo": "F",
+      "nombre": "Emiliano",
+      "apellidos": "Herrera Gómez",
+      "fechaNacimiento": "2024-09-02",
+      "sexo": "M",
       "expediente": "PI-02485",
+      "estanciaId": 12,
+      "tutorId": 3
+    },
+    {
+      "id": 6,
+      "nombre": "Gael",
+      "apellidos": "Hernández Hernández",
+      "fechaNacimiento": "2023-05-06",
+      "sexo": "M",
+      "expediente": "PI-02486",
+      "estanciaId": 35,
+      "tutorId": 4
+    },
+    {
+      "id": 7,
+      "nombre": "Emilio",
+      "apellidos": "Jiménez Ruiz",
+      "fechaNacimiento": "2025-01-07",
+      "sexo": "M",
+      "expediente": "PI-02487",
+      "estanciaId": 35,
+      "tutorId": 5
+    },
+    {
+      "id": 8,
+      "nombre": "Santiago",
+      "apellidos": "Hernández Rodríguez",
+      "fechaNacimiento": "2023-03-27",
+      "sexo": "M",
+      "expediente": "PI-02488",
+      "estanciaId": 35,
+      "tutorId": 6
+    },
+    {
+      "id": 9,
+      "nombre": "Santiago",
+      "apellidos": "Martínez Reyes",
+      "fechaNacimiento": "2026-04-13",
+      "sexo": "M",
+      "expediente": "PI-02489",
+      "estanciaId": 12,
+      "tutorId": 7
+    },
+    {
+      "id": 10,
+      "nombre": "Mateo",
+      "apellidos": "Vázquez Hernández",
+      "fechaNacimiento": "2022-08-07",
+      "sexo": "M",
+      "expediente": "PI-02490",
+      "estanciaId": 12,
+      "tutorId": 8
+    },
+    {
+      "id": 11,
+      "nombre": "Diego",
+      "apellidos": "Ramírez Pérez",
+      "fechaNacimiento": "2022-03-16",
+      "sexo": "M",
+      "expediente": "PI-02491",
+      "estanciaId": 12,
+      "tutorId": 9
+    },
+    {
+      "id": 12,
+      "nombre": "Tadeo",
+      "apellidos": "López Gómez",
+      "fechaNacimiento": "2022-08-24",
+      "sexo": "M",
+      "expediente": "PI-02492",
+      "estanciaId": 12,
+      "tutorId": 10
+    },
+    {
+      "id": 13,
+      "nombre": "Mía",
+      "apellidos": "Ramírez Pérez",
+      "fechaNacimiento": "2023-03-10",
+      "sexo": "F",
+      "expediente": "PI-02493",
+      "estanciaId": 41,
+      "tutorId": 11
+    },
+    {
+      "id": 14,
+      "nombre": "Daniela",
+      "apellidos": "Cruz Mendoza",
+      "fechaNacimiento": "2021-12-02",
+      "sexo": "F",
+      "expediente": "PI-02494",
+      "estanciaId": 41,
+      "tutorId": 12
+    },
+    {
+      "id": 15,
+      "nombre": "Renata",
+      "apellidos": "Mendoza Pérez",
+      "fechaNacimiento": "2024-09-15",
+      "sexo": "F",
+      "expediente": "PI-02495",
+      "estanciaId": 41,
+      "tutorId": 13
+    },
+    {
+      "id": 16,
+      "nombre": "Iker",
+      "apellidos": "Ramírez Gómez",
+      "fechaNacimiento": "2022-06-07",
+      "sexo": "M",
+      "expediente": "PI-02496",
+      "estanciaId": 41,
+      "tutorId": 14
+    },
+    {
+      "id": 17,
+      "nombre": "Mía",
+      "apellidos": "Díaz Rodríguez",
+      "fechaNacimiento": "2023-04-24",
+      "sexo": "F",
+      "expediente": "PI-02497",
+      "estanciaId": 41,
+      "tutorId": 15
+    },
+    {
+      "id": 18,
+      "nombre": "Natalia",
+      "apellidos": "Martínez González",
+      "fechaNacimiento": "2022-11-25",
+      "sexo": "F",
+      "expediente": "PI-02498",
+      "estanciaId": 41,
+      "tutorId": 16
+    },
+    {
+      "id": 19,
+      "nombre": "Gael",
+      "apellidos": "Jiménez Cruz",
+      "fechaNacimiento": "2021-05-17",
+      "sexo": "M",
+      "expediente": "PI-02499",
+      "estanciaId": 7,
+      "tutorId": 17
+    },
+    {
+      "id": 20,
+      "nombre": "Emiliano",
+      "apellidos": "Hernández Cruz",
+      "fechaNacimiento": "2022-08-16",
+      "sexo": "M",
+      "expediente": "PI-02500",
+      "estanciaId": 7,
+      "tutorId": 18
+    },
+    {
+      "id": 21,
+      "nombre": "Diego",
+      "apellidos": "Pérez Pérez",
+      "fechaNacimiento": "2024-05-18",
+      "sexo": "M",
+      "expediente": "PI-02501",
+      "estanciaId": 7,
+      "tutorId": 19
+    },
+    {
+      "id": 22,
+      "nombre": "Regina",
+      "apellidos": "Vázquez García",
+      "fechaNacimiento": "2023-07-11",
+      "sexo": "F",
+      "expediente": "PI-02502",
+      "estanciaId": 7,
+      "tutorId": 20
+    },
+    {
+      "id": 23,
+      "nombre": "Romina",
+      "apellidos": "Jiménez Gómez",
+      "fechaNacimiento": "2022-11-27",
+      "sexo": "F",
+      "expediente": "PI-02503",
+      "estanciaId": 7,
+      "tutorId": 21
+    },
+    {
+      "id": 24,
+      "nombre": "Daniela",
+      "apellidos": "Jiménez Gómez",
+      "fechaNacimiento": "2024-08-20",
+      "sexo": "F",
+      "expediente": "PI-02504",
+      "estanciaId": 7,
+      "tutorId": 22
+    },
+    {
+      "id": 25,
+      "nombre": "Victoria",
+      "apellidos": "Rodríguez Rodríguez",
+      "fechaNacimiento": "2024-01-28",
+      "sexo": "F",
+      "expediente": "PI-02505",
+      "estanciaId": 52,
+      "tutorId": 23
+    },
+    {
+      "id": 26,
+      "nombre": "Mía",
+      "apellidos": "Rodríguez Morales",
+      "fechaNacimiento": "2024-04-26",
+      "sexo": "F",
+      "expediente": "PI-02506",
+      "estanciaId": 52,
+      "tutorId": 24
+    },
+    {
+      "id": 27,
+      "nombre": "Natalia",
+      "apellidos": "Torres Torres",
+      "fechaNacimiento": "2021-09-20",
+      "sexo": "F",
+      "expediente": "PI-02507",
+      "estanciaId": 52,
+      "tutorId": 25
+    },
+    {
+      "id": 28,
+      "nombre": "Camila",
+      "apellidos": "López Flores",
+      "fechaNacimiento": "2022-05-12",
+      "sexo": "F",
+      "expediente": "PI-02508",
+      "estanciaId": 52,
+      "tutorId": 26
+    },
+    {
+      "id": 29,
+      "nombre": "Iker",
+      "apellidos": "Hernández Ruiz",
+      "fechaNacimiento": "2025-05-07",
+      "sexo": "M",
+      "expediente": "PI-02509",
+      "estanciaId": 52,
+      "tutorId": 27
+    },
+    {
+      "id": 30,
+      "nombre": "Mateo",
+      "apellidos": "Sánchez Martínez",
+      "fechaNacimiento": "2022-04-22",
+      "sexo": "M",
+      "expediente": "PI-02510",
+      "estanciaId": 52,
+      "tutorId": 28
+    },
+    {
+      "id": 31,
+      "nombre": "Emilio",
+      "apellidos": "Ramírez Torres",
+      "fechaNacimiento": "2024-02-12",
+      "sexo": "M",
+      "expediente": "PI-02511",
       "estanciaId": 3,
-      "tutorId": null
+      "tutorId": 29
+    },
+    {
+      "id": 32,
+      "nombre": "Valentina",
+      "apellidos": "Rodríguez Mendoza",
+      "fechaNacimiento": "2024-08-07",
+      "sexo": "F",
+      "expediente": "PI-02512",
+      "estanciaId": 3,
+      "tutorId": 30
+    },
+    {
+      "id": 33,
+      "nombre": "Sebastián",
+      "apellidos": "Morales Mendoza",
+      "fechaNacimiento": "2024-01-07",
+      "sexo": "M",
+      "expediente": "PI-02513",
+      "estanciaId": 3,
+      "tutorId": 31
+    },
+    {
+      "id": 34,
+      "nombre": "Renata",
+      "apellidos": "Torres García",
+      "fechaNacimiento": "2025-02-08",
+      "sexo": "F",
+      "expediente": "PI-02514",
+      "estanciaId": 3,
+      "tutorId": 32
+    },
+    {
+      "id": 35,
+      "nombre": "Iker",
+      "apellidos": "Rodríguez Reyes",
+      "fechaNacimiento": "2026-02-15",
+      "sexo": "M",
+      "expediente": "PI-02515",
+      "estanciaId": 3,
+      "tutorId": 33
+    },
+    {
+      "id": 36,
+      "nombre": "Isabella",
+      "apellidos": "Jiménez Morales",
+      "fechaNacimiento": "2023-12-03",
+      "sexo": "F",
+      "expediente": "PI-02516",
+      "estanciaId": 3,
+      "tutorId": 34
+    },
+    {
+      "id": 37,
+      "nombre": "Emilio",
+      "apellidos": "Mendoza Díaz",
+      "fechaNacimiento": "2023-05-13",
+      "sexo": "M",
+      "expediente": "PI-02517",
+      "estanciaId": 20,
+      "tutorId": 35
+    },
+    {
+      "id": 38,
+      "nombre": "Camila",
+      "apellidos": "Mendoza Morales",
+      "fechaNacimiento": "2022-04-25",
+      "sexo": "F",
+      "expediente": "PI-02518",
+      "estanciaId": 20,
+      "tutorId": 36
+    },
+    {
+      "id": 39,
+      "nombre": "Regina",
+      "apellidos": "Ruiz Reyes",
+      "fechaNacimiento": "2023-11-25",
+      "sexo": "F",
+      "expediente": "PI-02519",
+      "estanciaId": 20,
+      "tutorId": 37
+    },
+    {
+      "id": 40,
+      "nombre": "Iker",
+      "apellidos": "Flores González",
+      "fechaNacimiento": "2021-06-06",
+      "sexo": "M",
+      "expediente": "PI-02520",
+      "estanciaId": 20,
+      "tutorId": 38
+    },
+    {
+      "id": 41,
+      "nombre": "Iker",
+      "apellidos": "Cruz Sánchez",
+      "fechaNacimiento": "2023-02-28",
+      "sexo": "M",
+      "expediente": "PI-02521",
+      "estanciaId": 20,
+      "tutorId": 39
+    },
+    {
+      "id": 42,
+      "nombre": "Emilio",
+      "apellidos": "Mendoza Flores",
+      "fechaNacimiento": "2022-08-09",
+      "sexo": "M",
+      "expediente": "PI-02522",
+      "estanciaId": 20,
+      "tutorId": 40
     }
   ],
   "mediciones": [
@@ -213,94 +1013,1696 @@
     {
       "id": 5,
       "infanteId": 2,
-      "fecha": "2026-03-03",
-      "peso": 14.1,
-      "talla": 92,
-      "perimetroCefalico": 49,
+      "fecha": "2026-01-05",
+      "peso": 17.4,
+      "talla": 104,
+      "perimetroCefalico": 50.2,
       "registradoPor": 3
     },
     {
       "id": 6,
       "infanteId": 2,
-      "fecha": "2026-09-29",
-      "peso": 15,
-      "talla": 96.2,
-      "perimetroCefalico": 49.6,
+      "fecha": "2026-04-05",
+      "peso": 17.9,
+      "talla": 106.3,
+      "perimetroCefalico": 50.3,
       "registradoPor": 3
     },
     {
       "id": 7,
+      "infanteId": 2,
+      "fecha": "2026-07-05",
+      "peso": 18.2,
+      "talla": 107.4,
+      "perimetroCefalico": 50.4,
+      "registradoPor": 3
+    },
+    {
+      "id": 8,
+      "infanteId": 2,
+      "fecha": "2026-10-05",
+      "peso": 19.2,
+      "talla": 110.1,
+      "perimetroCefalico": 50.7,
+      "registradoPor": 3
+    },
+    {
+      "id": 9,
       "infanteId": 3,
-      "fecha": "2026-09-30",
-      "peso": 9.1,
-      "talla": 75,
+      "fecha": "2026-04-20",
+      "peso": 15.7,
+      "talla": 93.4,
+      "perimetroCefalico": 49.7,
+      "registradoPor": 3
+    },
+    {
+      "id": 10,
+      "infanteId": 3,
+      "fecha": "2026-07-20",
+      "peso": 16.5,
+      "talla": 95.6,
+      "perimetroCefalico": 49.9,
+      "registradoPor": 3
+    },
+    {
+      "id": 11,
+      "infanteId": 3,
+      "fecha": "2026-10-20",
+      "peso": 19.8,
+      "talla": 97,
+      "perimetroCefalico": 50,
+      "registradoPor": 3
+    },
+    {
+      "id": 12,
+      "infanteId": 4,
+      "fecha": "2025-10-18",
+      "peso": 13.8,
+      "talla": 96,
+      "perimetroCefalico": 48.5,
+      "registradoPor": 6
+    },
+    {
+      "id": 13,
+      "infanteId": 4,
+      "fecha": "2026-01-18",
+      "peso": 14.4,
+      "talla": 97.5,
+      "perimetroCefalico": 48.7,
+      "registradoPor": 6
+    },
+    {
+      "id": 14,
+      "infanteId": 4,
+      "fecha": "2026-04-18",
+      "peso": 14.8,
+      "talla": 99.8,
+      "perimetroCefalico": 48.7,
+      "registradoPor": 6
+    },
+    {
+      "id": 15,
+      "infanteId": 4,
+      "fecha": "2026-07-18",
+      "peso": 15.4,
+      "talla": 101,
+      "perimetroCefalico": 48.9,
+      "registradoPor": 6
+    },
+    {
+      "id": 16,
+      "infanteId": 4,
+      "fecha": "2026-10-18",
+      "peso": 15.8,
+      "talla": 102.9,
+      "perimetroCefalico": 48.7,
+      "registradoPor": 6
+    },
+    {
+      "id": 17,
+      "infanteId": 5,
+      "fecha": "2025-10-06",
+      "peso": 7.9,
+      "talla": 74.2,
+      "perimetroCefalico": 46.1,
+      "registradoPor": 6
+    },
+    {
+      "id": 18,
+      "infanteId": 5,
+      "fecha": "2026-01-06",
+      "peso": 8.6,
+      "talla": 77.4,
+      "perimetroCefalico": 46.7,
+      "registradoPor": 6
+    },
+    {
+      "id": 19,
+      "infanteId": 5,
+      "fecha": "2026-04-06",
+      "peso": 9,
+      "talla": 79.6,
+      "perimetroCefalico": 47.1,
+      "registradoPor": 6
+    },
+    {
+      "id": 20,
+      "infanteId": 5,
+      "fecha": "2026-07-06",
+      "peso": 9.6,
+      "talla": 82.5,
+      "perimetroCefalico": 47.6,
+      "registradoPor": 6
+    },
+    {
+      "id": 21,
+      "infanteId": 5,
+      "fecha": "2026-10-06",
+      "peso": 9.9,
+      "talla": 84.2,
+      "perimetroCefalico": 48.3,
+      "registradoPor": 6
+    },
+    {
+      "id": 22,
+      "infanteId": 6,
+      "fecha": "2026-04-06",
+      "peso": 13,
+      "talla": 91.6,
+      "perimetroCefalico": 49,
+      "registradoPor": 3
+    },
+    {
+      "id": 23,
+      "infanteId": 6,
+      "fecha": "2026-07-06",
+      "peso": 13.5,
+      "talla": 92.9,
+      "perimetroCefalico": 49.2,
+      "registradoPor": 3
+    },
+    {
+      "id": 24,
+      "infanteId": 6,
+      "fecha": "2026-10-06",
+      "peso": 13.7,
+      "talla": 94.6,
+      "perimetroCefalico": 48.9,
+      "registradoPor": 3
+    },
+    {
+      "id": 25,
+      "infanteId": 7,
+      "fecha": "2026-04-16",
+      "peso": 10.3,
+      "talla": 77.6,
+      "perimetroCefalico": 46.7,
+      "registradoPor": 3
+    },
+    {
+      "id": 26,
+      "infanteId": 7,
+      "fecha": "2026-07-16",
+      "peso": 10.9,
+      "talla": 80.6,
+      "perimetroCefalico": 47.2,
+      "registradoPor": 3
+    },
+    {
+      "id": 27,
+      "infanteId": 7,
+      "fecha": "2026-10-16",
+      "peso": 11.6,
+      "talla": 83.3,
+      "perimetroCefalico": 48,
+      "registradoPor": 3
+    },
+    {
+      "id": 28,
+      "infanteId": 8,
+      "fecha": "2026-01-11",
+      "peso": 13.6,
+      "talla": 91.3,
+      "perimetroCefalico": 48.9,
+      "registradoPor": 3
+    },
+    {
+      "id": 29,
+      "infanteId": 8,
+      "fecha": "2026-04-11",
+      "peso": 13.9,
+      "talla": 93.2,
+      "perimetroCefalico": 49.4,
+      "registradoPor": 3
+    },
+    {
+      "id": 30,
+      "infanteId": 8,
+      "fecha": "2026-07-11",
+      "peso": 14.4,
+      "talla": 95.1,
+      "perimetroCefalico": 49.4,
+      "registradoPor": 3
+    },
+    {
+      "id": 31,
+      "infanteId": 8,
+      "fecha": "2026-10-11",
+      "peso": 14.8,
+      "talla": 96.9,
+      "perimetroCefalico": 49.1,
+      "registradoPor": 3
+    },
+    {
+      "id": 32,
+      "infanteId": 9,
+      "fecha": "2026-07-13",
+      "peso": 5.6,
+      "talla": 59.9,
+      "perimetroCefalico": 41,
+      "registradoPor": 6
+    },
+    {
+      "id": 33,
+      "infanteId": 9,
+      "fecha": "2026-10-13",
+      "peso": 7.1,
+      "talla": 65.8,
+      "perimetroCefalico": 43.4,
+      "registradoPor": 6
+    },
+    {
+      "id": 34,
+      "infanteId": 10,
+      "fecha": "2026-04-10",
+      "peso": 15.4,
+      "talla": 102.2,
+      "perimetroCefalico": 50.4,
+      "registradoPor": 6
+    },
+    {
+      "id": 35,
+      "infanteId": 10,
+      "fecha": "2026-07-10",
+      "peso": 15.7,
+      "talla": 103.3,
+      "perimetroCefalico": 50.1,
+      "registradoPor": 6
+    },
+    {
+      "id": 36,
+      "infanteId": 10,
+      "fecha": "2026-10-10",
+      "peso": 16.4,
+      "talla": 105.5,
+      "perimetroCefalico": 50.4,
+      "registradoPor": 6
+    },
+    {
+      "id": 37,
+      "infanteId": 11,
+      "fecha": "2026-01-09",
+      "peso": 16,
+      "talla": 98.3,
+      "perimetroCefalico": 49.5,
+      "registradoPor": 6
+    },
+    {
+      "id": 38,
+      "infanteId": 11,
+      "fecha": "2026-04-09",
+      "peso": 16.3,
+      "talla": 99.5,
+      "perimetroCefalico": 49.6,
+      "registradoPor": 6
+    },
+    {
+      "id": 39,
+      "infanteId": 11,
+      "fecha": "2026-07-09",
+      "peso": 16.8,
+      "talla": 100.8,
+      "perimetroCefalico": 49.2,
+      "registradoPor": 6
+    },
+    {
+      "id": 40,
+      "infanteId": 11,
+      "fecha": "2026-10-09",
+      "peso": 17.3,
+      "talla": 102.1,
+      "perimetroCefalico": 49.4,
+      "registradoPor": 6
+    },
+    {
+      "id": 41,
+      "infanteId": 12,
+      "fecha": "2025-07-19",
+      "peso": 15.4,
+      "talla": 97.6,
+      "perimetroCefalico": 50.3,
+      "registradoPor": 6
+    },
+    {
+      "id": 42,
+      "infanteId": 12,
+      "fecha": "2025-10-19",
+      "peso": 15.6,
+      "talla": 99,
+      "perimetroCefalico": 50.3,
+      "registradoPor": 6
+    },
+    {
+      "id": 43,
+      "infanteId": 12,
+      "fecha": "2026-01-19",
+      "peso": 15.9,
+      "talla": 100.6,
+      "perimetroCefalico": 50.4,
+      "registradoPor": 6
+    },
+    {
+      "id": 44,
+      "infanteId": 12,
+      "fecha": "2026-04-19",
+      "peso": 16.8,
+      "talla": 102.6,
+      "perimetroCefalico": 50.5,
+      "registradoPor": 6
+    },
+    {
+      "id": 45,
+      "infanteId": 12,
+      "fecha": "2026-07-19",
+      "peso": 17.3,
+      "talla": 104.9,
+      "perimetroCefalico": 50.6,
+      "registradoPor": 6
+    },
+    {
+      "id": 46,
+      "infanteId": 12,
+      "fecha": "2026-10-19",
+      "peso": 17.8,
+      "talla": 106.5,
+      "perimetroCefalico": 50.6,
+      "registradoPor": 6
+    },
+    {
+      "id": 47,
+      "infanteId": 13,
+      "fecha": "2025-06-24",
+      "peso": 12.7,
+      "talla": 87,
+      "perimetroCefalico": 47.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 48,
+      "infanteId": 13,
+      "fecha": "2025-09-24",
+      "peso": 13.3,
+      "talla": 89.9,
+      "perimetroCefalico": 48.2,
+      "registradoPor": 4
+    },
+    {
+      "id": 49,
+      "infanteId": 13,
+      "fecha": "2025-12-24",
+      "peso": 13.7,
+      "talla": 92.4,
+      "perimetroCefalico": 48.2,
+      "registradoPor": 4
+    },
+    {
+      "id": 50,
+      "infanteId": 13,
+      "fecha": "2026-03-24",
+      "peso": 14.3,
+      "talla": 93.9,
+      "perimetroCefalico": 48.5,
+      "registradoPor": 4
+    },
+    {
+      "id": 51,
+      "infanteId": 13,
+      "fecha": "2026-06-24",
+      "peso": 14.5,
+      "talla": 95.8,
+      "perimetroCefalico": 48.6,
+      "registradoPor": 4
+    },
+    {
+      "id": 52,
+      "infanteId": 13,
+      "fecha": "2026-09-24",
+      "peso": 15,
+      "talla": 97.8,
+      "perimetroCefalico": 48.5,
+      "registradoPor": 4
+    },
+    {
+      "id": 53,
+      "infanteId": 14,
+      "fecha": "2026-03-17",
+      "peso": 14,
+      "talla": 102.9,
+      "perimetroCefalico": 49.3,
+      "registradoPor": 4
+    },
+    {
+      "id": 54,
+      "infanteId": 14,
+      "fecha": "2026-06-17",
+      "peso": 14.8,
+      "talla": 105.6,
+      "perimetroCefalico": 49.1,
+      "registradoPor": 4
+    },
+    {
+      "id": 55,
+      "infanteId": 14,
+      "fecha": "2026-09-17",
+      "peso": 14.9,
+      "talla": 106.6,
+      "perimetroCefalico": 49.3,
+      "registradoPor": 4
+    },
+    {
+      "id": 56,
+      "infanteId": 15,
+      "fecha": "2025-12-08",
+      "peso": 10.1,
+      "talla": 78.3,
+      "perimetroCefalico": 46.2,
+      "registradoPor": 4
+    },
+    {
+      "id": 57,
+      "infanteId": 15,
+      "fecha": "2026-03-08",
+      "peso": 10.8,
+      "talla": 81.3,
+      "perimetroCefalico": 46.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 58,
+      "infanteId": 15,
+      "fecha": "2026-06-08",
+      "peso": 11.6,
+      "talla": 84.3,
+      "perimetroCefalico": 47.2,
+      "registradoPor": 4
+    },
+    {
+      "id": 59,
+      "infanteId": 15,
+      "fecha": "2026-09-08",
+      "peso": 12.1,
+      "talla": 87.1,
+      "perimetroCefalico": 47.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 60,
+      "infanteId": 16,
+      "fecha": "2025-06-14",
+      "peso": 14.7,
+      "talla": 99,
+      "perimetroCefalico": 50.4,
+      "registradoPor": 4
+    },
+    {
+      "id": 61,
+      "infanteId": 16,
+      "fecha": "2025-09-14",
+      "peso": 15.3,
+      "talla": 101.1,
+      "perimetroCefalico": 50.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 62,
+      "infanteId": 16,
+      "fecha": "2025-12-14",
+      "peso": 15.5,
+      "talla": 102.2,
+      "perimetroCefalico": 50.4,
+      "registradoPor": 4
+    },
+    {
+      "id": 63,
+      "infanteId": 16,
+      "fecha": "2026-03-14",
+      "peso": 16.4,
+      "talla": 104.3,
+      "perimetroCefalico": 50.8,
+      "registradoPor": 4
+    },
+    {
+      "id": 64,
+      "infanteId": 16,
+      "fecha": "2026-06-14",
+      "peso": 16.7,
+      "talla": 106,
+      "perimetroCefalico": 50.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 65,
+      "infanteId": 16,
+      "fecha": "2026-09-14",
+      "peso": 17.1,
+      "talla": 107.6,
+      "perimetroCefalico": 50.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 66,
+      "infanteId": 17,
+      "fecha": "2025-09-21",
+      "peso": 12.6,
+      "talla": 87.7,
+      "perimetroCefalico": 47.8,
+      "registradoPor": 4
+    },
+    {
+      "id": 67,
+      "infanteId": 17,
+      "fecha": "2025-12-21",
+      "peso": 13,
+      "talla": 90.1,
+      "perimetroCefalico": 48.1,
+      "registradoPor": 4
+    },
+    {
+      "id": 68,
+      "infanteId": 17,
+      "fecha": "2026-03-21",
+      "peso": 13.7,
+      "talla": 92.1,
+      "perimetroCefalico": 48.4,
+      "registradoPor": 4
+    },
+    {
+      "id": 69,
+      "infanteId": 17,
+      "fecha": "2026-06-21",
+      "peso": 14,
+      "talla": 94,
+      "perimetroCefalico": 48.3,
+      "registradoPor": 4
+    },
+    {
+      "id": 70,
+      "infanteId": 17,
+      "fecha": "2026-09-21",
+      "peso": 14.3,
+      "talla": 95.7,
+      "perimetroCefalico": 48.6,
+      "registradoPor": 4
+    },
+    {
+      "id": 71,
+      "infanteId": 18,
+      "fecha": "2026-03-15",
+      "peso": 13.8,
+      "talla": 94.8,
+      "perimetroCefalico": 48.3,
+      "registradoPor": 4
+    },
+    {
+      "id": 72,
+      "infanteId": 18,
+      "fecha": "2026-06-15",
+      "peso": 14.2,
+      "talla": 96.2,
+      "perimetroCefalico": 48.7,
+      "registradoPor": 4
+    },
+    {
+      "id": 73,
+      "infanteId": 18,
+      "fecha": "2026-09-15",
+      "peso": 14.7,
+      "talla": 98,
+      "perimetroCefalico": 48.6,
+      "registradoPor": 4
+    },
+    {
+      "id": 74,
+      "infanteId": 19,
+      "fecha": "2025-07-14",
+      "peso": 14.4,
+      "talla": 99.3,
+      "perimetroCefalico": 49.4,
+      "registradoPor": null
+    },
+    {
+      "id": 75,
+      "infanteId": 19,
+      "fecha": "2025-10-14",
+      "peso": 14.7,
+      "talla": 100.5,
+      "perimetroCefalico": 49.2,
+      "registradoPor": null
+    },
+    {
+      "id": 76,
+      "infanteId": 19,
+      "fecha": "2026-01-14",
+      "peso": 15.2,
+      "talla": 102.5,
+      "perimetroCefalico": 49.6,
+      "registradoPor": null
+    },
+    {
+      "id": 77,
+      "infanteId": 19,
+      "fecha": "2026-04-14",
+      "peso": 15.7,
+      "talla": 104.1,
+      "perimetroCefalico": 49.4,
+      "registradoPor": null
+    },
+    {
+      "id": 78,
+      "infanteId": 19,
+      "fecha": "2026-07-14",
+      "peso": 16.1,
+      "talla": 105.5,
+      "perimetroCefalico": 49.7,
+      "registradoPor": null
+    },
+    {
+      "id": 79,
+      "infanteId": 19,
+      "fecha": "2026-10-14",
+      "peso": 16.8,
+      "talla": 107.1,
+      "perimetroCefalico": 49.9,
+      "registradoPor": null
+    },
+    {
+      "id": 80,
+      "infanteId": 20,
+      "fecha": "2026-04-11",
+      "peso": 13.5,
+      "talla": 99.7,
+      "perimetroCefalico": 50.2,
+      "registradoPor": null
+    },
+    {
+      "id": 81,
+      "infanteId": 20,
+      "fecha": "2026-07-11",
+      "peso": 14.2,
+      "talla": 102.5,
+      "perimetroCefalico": 49.8,
+      "registradoPor": null
+    },
+    {
+      "id": 82,
+      "infanteId": 20,
+      "fecha": "2026-10-11",
+      "peso": 14.4,
+      "talla": 103.4,
+      "perimetroCefalico": 49.9,
+      "registradoPor": null
+    },
+    {
+      "id": 83,
+      "infanteId": 21,
+      "fecha": "2026-04-18",
+      "peso": 12.9,
+      "talla": 87.2,
+      "perimetroCefalico": 48.6,
+      "registradoPor": null
+    },
+    {
+      "id": 84,
+      "infanteId": 21,
+      "fecha": "2026-07-18",
+      "peso": 13.7,
+      "talla": 89.1,
+      "perimetroCefalico": 48.9,
+      "registradoPor": null
+    },
+    {
+      "id": 85,
+      "infanteId": 21,
+      "fecha": "2026-10-18",
+      "peso": 14.1,
+      "talla": 91.4,
+      "perimetroCefalico": 49.5,
+      "registradoPor": null
+    },
+    {
+      "id": 86,
+      "infanteId": 22,
+      "fecha": "2025-10-19",
+      "peso": 11.3,
+      "talla": 85.2,
+      "perimetroCefalico": 47.2,
+      "registradoPor": null
+    },
+    {
+      "id": 87,
+      "infanteId": 22,
+      "fecha": "2026-01-19",
+      "peso": 12,
+      "talla": 87.7,
+      "perimetroCefalico": 47.8,
+      "registradoPor": null
+    },
+    {
+      "id": 88,
+      "infanteId": 22,
+      "fecha": "2026-04-19",
+      "peso": 12.6,
+      "talla": 90.2,
+      "perimetroCefalico": 47.9,
+      "registradoPor": null
+    },
+    {
+      "id": 89,
+      "infanteId": 22,
+      "fecha": "2026-07-19",
+      "peso": 12.7,
+      "talla": 91.6,
+      "perimetroCefalico": 48.1,
+      "registradoPor": null
+    },
+    {
+      "id": 90,
+      "infanteId": 22,
+      "fecha": "2026-10-19",
+      "peso": 13,
+      "talla": 92.9,
+      "perimetroCefalico": 48.3,
+      "registradoPor": null
+    },
+    {
+      "id": 91,
+      "infanteId": 23,
+      "fecha": "2026-01-15",
+      "peso": 13,
+      "talla": 93.2,
+      "perimetroCefalico": 48,
+      "registradoPor": null
+    },
+    {
+      "id": 92,
+      "infanteId": 23,
+      "fecha": "2026-04-15",
+      "peso": 13.3,
+      "talla": 94.7,
+      "perimetroCefalico": 48.4,
+      "registradoPor": null
+    },
+    {
+      "id": 93,
+      "infanteId": 23,
+      "fecha": "2026-07-15",
+      "peso": 13.5,
+      "talla": 95.9,
+      "perimetroCefalico": 48.3,
+      "registradoPor": null
+    },
+    {
+      "id": 94,
+      "infanteId": 23,
+      "fecha": "2026-10-15",
+      "peso": 14.1,
+      "talla": 98.3,
+      "perimetroCefalico": 48.4,
+      "registradoPor": null
+    },
+    {
+      "id": 95,
+      "infanteId": 24,
+      "fecha": "2025-07-12",
+      "peso": 8.2,
+      "talla": 72.3,
+      "perimetroCefalico": 44.8,
+      "registradoPor": null
+    },
+    {
+      "id": 96,
+      "infanteId": 24,
+      "fecha": "2025-10-12",
+      "peso": 9.2,
+      "talla": 76.4,
+      "perimetroCefalico": 45.7,
+      "registradoPor": null
+    },
+    {
+      "id": 97,
+      "infanteId": 24,
+      "fecha": "2026-01-12",
+      "peso": 9.7,
+      "talla": 79.1,
+      "perimetroCefalico": 46.2,
+      "registradoPor": null
+    },
+    {
+      "id": 98,
+      "infanteId": 24,
+      "fecha": "2026-04-12",
+      "peso": 10.5,
+      "talla": 82.4,
+      "perimetroCefalico": 46.7,
+      "registradoPor": null
+    },
+    {
+      "id": 99,
+      "infanteId": 24,
+      "fecha": "2026-07-12",
+      "peso": 10.8,
+      "talla": 84.5,
+      "perimetroCefalico": 47.4,
+      "registradoPor": null
+    },
+    {
+      "id": 100,
+      "infanteId": 24,
+      "fecha": "2026-10-12",
+      "peso": 11.5,
+      "talla": 86.5,
+      "perimetroCefalico": 47.6,
+      "registradoPor": null
+    },
+    {
+      "id": 101,
+      "infanteId": 25,
+      "fecha": "2025-09-07",
+      "peso": 9,
+      "talla": 74,
       "perimetroCefalico": 45.1,
       "registradoPor": null
     },
     {
-      "id": 8,
-      "infanteId": 4,
+      "id": 102,
+      "infanteId": 25,
+      "fecha": "2025-12-07",
+      "peso": 9.3,
+      "talla": 76.2,
+      "perimetroCefalico": 45.4,
+      "registradoPor": null
+    },
+    {
+      "id": 103,
+      "infanteId": 25,
+      "fecha": "2026-03-07",
+      "peso": 9.5,
+      "talla": 77.9,
+      "perimetroCefalico": 45.8,
+      "registradoPor": null
+    },
+    {
+      "id": 104,
+      "infanteId": 25,
+      "fecha": "2026-06-07",
+      "peso": 9.9,
+      "talla": 79.9,
+      "perimetroCefalico": 46.3,
+      "registradoPor": null
+    },
+    {
+      "id": 105,
+      "infanteId": 25,
+      "fecha": "2026-09-07",
+      "peso": 10.5,
+      "talla": 81.9,
+      "perimetroCefalico": 46.6,
+      "registradoPor": null
+    },
+    {
+      "id": 106,
+      "infanteId": 26,
+      "fecha": "2025-12-22",
+      "peso": 11.2,
+      "talla": 82.1,
+      "perimetroCefalico": 46.7,
+      "registradoPor": null
+    },
+    {
+      "id": 107,
+      "infanteId": 26,
+      "fecha": "2026-03-22",
+      "peso": 11.9,
+      "talla": 84.6,
+      "perimetroCefalico": 47.5,
+      "registradoPor": null
+    },
+    {
+      "id": 108,
+      "infanteId": 26,
+      "fecha": "2026-06-22",
+      "peso": 12.7,
+      "talla": 87.3,
+      "perimetroCefalico": 47.7,
+      "registradoPor": null
+    },
+    {
+      "id": 109,
+      "infanteId": 26,
+      "fecha": "2026-09-22",
+      "peso": 13.2,
+      "talla": 89.3,
+      "perimetroCefalico": 48.1,
+      "registradoPor": null
+    },
+    {
+      "id": 110,
+      "infanteId": 27,
+      "fecha": "2025-12-23",
+      "peso": 18,
+      "talla": 105.5,
+      "perimetroCefalico": 49.2,
+      "registradoPor": null
+    },
+    {
+      "id": 111,
+      "infanteId": 27,
+      "fecha": "2026-03-23",
+      "peso": 18.3,
+      "talla": 106.2,
+      "perimetroCefalico": 49.3,
+      "registradoPor": null
+    },
+    {
+      "id": 112,
+      "infanteId": 27,
+      "fecha": "2026-06-23",
+      "peso": 19.1,
+      "talla": 108.6,
+      "perimetroCefalico": 49.6,
+      "registradoPor": null
+    },
+    {
+      "id": 113,
+      "infanteId": 27,
+      "fecha": "2026-09-23",
+      "peso": 19.9,
+      "talla": 110.1,
+      "perimetroCefalico": 49.7,
+      "registradoPor": null
+    },
+    {
+      "id": 114,
+      "infanteId": 28,
+      "fecha": "2025-12-16",
+      "peso": 14.6,
+      "talla": 95.8,
+      "perimetroCefalico": 48.3,
+      "registradoPor": null
+    },
+    {
+      "id": 115,
+      "infanteId": 28,
+      "fecha": "2026-03-16",
+      "peso": 14.8,
+      "talla": 97.3,
+      "perimetroCefalico": 48.7,
+      "registradoPor": null
+    },
+    {
+      "id": 116,
+      "infanteId": 28,
+      "fecha": "2026-06-16",
+      "peso": 15.4,
+      "talla": 99,
+      "perimetroCefalico": 48.5,
+      "registradoPor": null
+    },
+    {
+      "id": 117,
+      "infanteId": 28,
+      "fecha": "2026-09-16",
+      "peso": 15.9,
+      "talla": 100.8,
+      "perimetroCefalico": 48.7,
+      "registradoPor": null
+    },
+    {
+      "id": 118,
+      "infanteId": 29,
+      "fecha": "2025-12-24",
+      "peso": 7.4,
+      "talla": 67.7,
+      "perimetroCefalico": 44.1,
+      "registradoPor": null
+    },
+    {
+      "id": 119,
+      "infanteId": 29,
+      "fecha": "2026-03-24",
+      "peso": 8.4,
+      "talla": 71.8,
+      "perimetroCefalico": 45.5,
+      "registradoPor": null
+    },
+    {
+      "id": 120,
+      "infanteId": 29,
+      "fecha": "2026-06-24",
+      "peso": 9.1,
+      "talla": 75.1,
+      "perimetroCefalico": 46.4,
+      "registradoPor": null
+    },
+    {
+      "id": 121,
+      "infanteId": 29,
       "fecha": "2026-09-24",
+      "peso": 9.8,
+      "talla": 78.2,
+      "perimetroCefalico": 46.8,
+      "registradoPor": null
+    },
+    {
+      "id": 122,
+      "infanteId": 30,
+      "fecha": "2026-03-19",
+      "peso": 15.3,
+      "talla": 100.4,
+      "perimetroCefalico": 49.9,
+      "registradoPor": null
+    },
+    {
+      "id": 123,
+      "infanteId": 30,
+      "fecha": "2026-06-19",
       "peso": 15.8,
-      "talla": 99.5,
+      "talla": 101.8,
+      "perimetroCefalico": 49.7,
+      "registradoPor": null
+    },
+    {
+      "id": 124,
+      "infanteId": 30,
+      "fecha": "2026-09-19",
+      "peso": 15.9,
+      "talla": 103.1,
+      "perimetroCefalico": 49.5,
+      "registradoPor": null
+    },
+    {
+      "id": 125,
+      "infanteId": 31,
+      "fecha": "2025-07-20",
+      "peso": 10.6,
+      "talla": 80.4,
+      "perimetroCefalico": 47.6,
+      "registradoPor": 7
+    },
+    {
+      "id": 126,
+      "infanteId": 31,
+      "fecha": "2025-10-20",
+      "peso": 11.1,
+      "talla": 82.9,
+      "perimetroCefalico": 48.2,
+      "registradoPor": 7
+    },
+    {
+      "id": 127,
+      "infanteId": 31,
+      "fecha": "2026-01-20",
+      "peso": 12,
+      "talla": 86,
+      "perimetroCefalico": 48.4,
+      "registradoPor": 7
+    },
+    {
+      "id": 128,
+      "infanteId": 31,
+      "fecha": "2026-04-20",
+      "peso": 12.4,
+      "talla": 87.7,
+      "perimetroCefalico": 48.9,
+      "registradoPor": 7
+    },
+    {
+      "id": 129,
+      "infanteId": 31,
+      "fecha": "2026-07-20",
+      "peso": 12.7,
+      "talla": 89.6,
+      "perimetroCefalico": 48.9,
+      "registradoPor": 7
+    },
+    {
+      "id": 130,
+      "infanteId": 31,
+      "fecha": "2026-10-20",
+      "peso": 13.2,
+      "talla": 91.2,
+      "perimetroCefalico": 49.1,
+      "registradoPor": 7
+    },
+    {
+      "id": 131,
+      "infanteId": 32,
+      "fecha": "2026-01-02",
+      "peso": 8.4,
+      "talla": 71.7,
+      "perimetroCefalico": 44.9,
+      "registradoPor": 7
+    },
+    {
+      "id": 132,
+      "infanteId": 32,
+      "fecha": "2026-04-02",
+      "peso": 9.2,
+      "talla": 74.5,
+      "perimetroCefalico": 45.1,
+      "registradoPor": 7
+    },
+    {
+      "id": 133,
+      "infanteId": 32,
+      "fecha": "2026-07-02",
+      "peso": 9.4,
+      "talla": 76,
+      "perimetroCefalico": 45.7,
+      "registradoPor": 7
+    },
+    {
+      "id": 134,
+      "infanteId": 32,
+      "fecha": "2026-10-02",
+      "peso": 9.6,
+      "talla": 78,
+      "perimetroCefalico": 46,
+      "registradoPor": 7
+    },
+    {
+      "id": 135,
+      "infanteId": 33,
+      "fecha": "2025-10-13",
+      "peso": 12.8,
+      "talla": 86.4,
+      "perimetroCefalico": 48.7,
+      "registradoPor": 7
+    },
+    {
+      "id": 136,
+      "infanteId": 33,
+      "fecha": "2026-01-13",
+      "peso": 13.7,
+      "talla": 89,
+      "perimetroCefalico": 49.3,
+      "registradoPor": 7
+    },
+    {
+      "id": 137,
+      "infanteId": 33,
+      "fecha": "2026-04-13",
+      "peso": 14,
+      "talla": 90.9,
+      "perimetroCefalico": 49.6,
+      "registradoPor": 7
+    },
+    {
+      "id": 138,
+      "infanteId": 33,
+      "fecha": "2026-07-13",
+      "peso": 14.7,
+      "talla": 92.8,
+      "perimetroCefalico": 49.9,
+      "registradoPor": 7
+    },
+    {
+      "id": 139,
+      "infanteId": 33,
+      "fecha": "2026-10-13",
+      "peso": 15.5,
+      "talla": 95.5,
       "perimetroCefalico": 50.1,
-      "registradoPor": 4
+      "registradoPor": 7
+    },
+    {
+      "id": 140,
+      "infanteId": 34,
+      "fecha": "2026-01-08",
+      "peso": 11.6,
+      "talla": 75,
+      "perimetroCefalico": 45.4,
+      "registradoPor": 7
+    },
+    {
+      "id": 141,
+      "infanteId": 34,
+      "fecha": "2026-04-08",
+      "peso": 12.3,
+      "talla": 78.1,
+      "perimetroCefalico": 46.2,
+      "registradoPor": 7
+    },
+    {
+      "id": 142,
+      "infanteId": 34,
+      "fecha": "2026-07-08",
+      "peso": 13.3,
+      "talla": 81.8,
+      "perimetroCefalico": 46.8,
+      "registradoPor": 7
+    },
+    {
+      "id": 143,
+      "infanteId": 34,
+      "fecha": "2026-10-08",
+      "peso": 14.3,
+      "talla": 85.2,
+      "perimetroCefalico": 47.4,
+      "registradoPor": 7
+    },
+    {
+      "id": 144,
+      "infanteId": 35,
+      "fecha": "2026-04-07",
+      "peso": 5.4,
+      "talla": 56.9,
+      "perimetroCefalico": 39.7,
+      "registradoPor": 7
+    },
+    {
+      "id": 145,
+      "infanteId": 35,
+      "fecha": "2026-07-07",
+      "peso": 7.4,
+      "talla": 64.3,
+      "perimetroCefalico": 42.8,
+      "registradoPor": 7
+    },
+    {
+      "id": 146,
+      "infanteId": 35,
+      "fecha": "2026-10-07",
+      "peso": 8.7,
+      "talla": 69.3,
+      "perimetroCefalico": 44.7,
+      "registradoPor": 7
+    },
+    {
+      "id": 147,
+      "infanteId": 36,
+      "fecha": "2025-10-19",
+      "peso": 12.7,
+      "talla": 85.8,
+      "perimetroCefalico": 47.8,
+      "registradoPor": 7
+    },
+    {
+      "id": 148,
+      "infanteId": 36,
+      "fecha": "2026-01-19",
+      "peso": 13.6,
+      "talla": 87.9,
+      "perimetroCefalico": 48.1,
+      "registradoPor": 7
+    },
+    {
+      "id": 149,
+      "infanteId": 36,
+      "fecha": "2026-04-19",
+      "peso": 14.1,
+      "talla": 91,
+      "perimetroCefalico": 48.4,
+      "registradoPor": 7
+    },
+    {
+      "id": 150,
+      "infanteId": 36,
+      "fecha": "2026-07-19",
+      "peso": 14.5,
+      "talla": 92.4,
+      "perimetroCefalico": 48.7,
+      "registradoPor": 7
+    },
+    {
+      "id": 151,
+      "infanteId": 36,
+      "fecha": "2026-10-19",
+      "peso": 15.3,
+      "talla": 94.9,
+      "perimetroCefalico": 49,
+      "registradoPor": 7
+    },
+    {
+      "id": 152,
+      "infanteId": 37,
+      "fecha": "2025-07-02",
+      "peso": 13.9,
+      "talla": 89.4,
+      "perimetroCefalico": 49.2,
+      "registradoPor": null
+    },
+    {
+      "id": 153,
+      "infanteId": 37,
+      "fecha": "2025-10-02",
+      "peso": 14.4,
+      "talla": 91.3,
+      "perimetroCefalico": 49.5,
+      "registradoPor": null
+    },
+    {
+      "id": 154,
+      "infanteId": 37,
+      "fecha": "2026-01-02",
+      "peso": 14.8,
+      "talla": 93.9,
+      "perimetroCefalico": 49.5,
+      "registradoPor": null
+    },
+    {
+      "id": 155,
+      "infanteId": 37,
+      "fecha": "2026-04-02",
+      "peso": 15.3,
+      "talla": 95.6,
+      "perimetroCefalico": 49.7,
+      "registradoPor": null
+    },
+    {
+      "id": 156,
+      "infanteId": 37,
+      "fecha": "2026-07-02",
+      "peso": 15.7,
+      "talla": 97.5,
+      "perimetroCefalico": 50.2,
+      "registradoPor": null
+    },
+    {
+      "id": 157,
+      "infanteId": 37,
+      "fecha": "2026-10-02",
+      "peso": 16.1,
+      "talla": 98.8,
+      "perimetroCefalico": 50.3,
+      "registradoPor": null
+    },
+    {
+      "id": 158,
+      "infanteId": 38,
+      "fecha": "2025-07-08",
+      "peso": 15.2,
+      "talla": 98.5,
+      "perimetroCefalico": 49,
+      "registradoPor": null
+    },
+    {
+      "id": 159,
+      "infanteId": 38,
+      "fecha": "2025-10-08",
+      "peso": 15.6,
+      "talla": 100.2,
+      "perimetroCefalico": 49.3,
+      "registradoPor": null
+    },
+    {
+      "id": 160,
+      "infanteId": 38,
+      "fecha": "2026-01-08",
+      "peso": 15.8,
+      "talla": 101.4,
+      "perimetroCefalico": 49.3,
+      "registradoPor": null
+    },
+    {
+      "id": 161,
+      "infanteId": 38,
+      "fecha": "2026-04-08",
+      "peso": 16.3,
+      "talla": 103.3,
+      "perimetroCefalico": 49.5,
+      "registradoPor": null
+    },
+    {
+      "id": 162,
+      "infanteId": 38,
+      "fecha": "2026-07-08",
+      "peso": 17.2,
+      "talla": 105.9,
+      "perimetroCefalico": 49.3,
+      "registradoPor": null
+    },
+    {
+      "id": 163,
+      "infanteId": 38,
+      "fecha": "2026-10-08",
+      "peso": 17.5,
+      "talla": 107.6,
+      "perimetroCefalico": 49.4,
+      "registradoPor": null
+    },
+    {
+      "id": 164,
+      "infanteId": 39,
+      "fecha": "2026-01-03",
+      "peso": 11.8,
+      "talla": 86,
+      "perimetroCefalico": 47.6,
+      "registradoPor": null
+    },
+    {
+      "id": 165,
+      "infanteId": 39,
+      "fecha": "2026-04-03",
+      "peso": 12.3,
+      "talla": 88.2,
+      "perimetroCefalico": 47.8,
+      "registradoPor": null
+    },
+    {
+      "id": 166,
+      "infanteId": 39,
+      "fecha": "2026-07-03",
+      "peso": 13.1,
+      "talla": 91.4,
+      "perimetroCefalico": 48.3,
+      "registradoPor": null
+    },
+    {
+      "id": 167,
+      "infanteId": 39,
+      "fecha": "2026-10-03",
+      "peso": 13.3,
+      "talla": 93.2,
+      "perimetroCefalico": 48.7,
+      "registradoPor": null
+    },
+    {
+      "id": 168,
+      "infanteId": 40,
+      "fecha": "2025-10-03",
+      "peso": 18.4,
+      "talla": 105.9,
+      "perimetroCefalico": 50.1,
+      "registradoPor": null
+    },
+    {
+      "id": 169,
+      "infanteId": 40,
+      "fecha": "2026-01-03",
+      "peso": 18.8,
+      "talla": 107.1,
+      "perimetroCefalico": 50.6,
+      "registradoPor": null
+    },
+    {
+      "id": 170,
+      "infanteId": 40,
+      "fecha": "2026-04-03",
+      "peso": 19.7,
+      "talla": 109.3,
+      "perimetroCefalico": 50.5,
+      "registradoPor": null
+    },
+    {
+      "id": 171,
+      "infanteId": 40,
+      "fecha": "2026-07-03",
+      "peso": 20.3,
+      "talla": 110.9,
+      "perimetroCefalico": 50.6,
+      "registradoPor": null
+    },
+    {
+      "id": 172,
+      "infanteId": 40,
+      "fecha": "2026-10-03",
+      "peso": 20.8,
+      "talla": 113,
+      "perimetroCefalico": 50.5,
+      "registradoPor": null
+    },
+    {
+      "id": 173,
+      "infanteId": 41,
+      "fecha": "2026-04-18",
+      "peso": 15.8,
+      "talla": 96,
+      "perimetroCefalico": 49.7,
+      "registradoPor": null
+    },
+    {
+      "id": 174,
+      "infanteId": 41,
+      "fecha": "2026-07-18",
+      "peso": 16.1,
+      "talla": 97.6,
+      "perimetroCefalico": 49.7,
+      "registradoPor": null
+    },
+    {
+      "id": 175,
+      "infanteId": 41,
+      "fecha": "2026-10-18",
+      "peso": 17,
+      "talla": 100.4,
+      "perimetroCefalico": 49.9,
+      "registradoPor": null
+    },
+    {
+      "id": 176,
+      "infanteId": 42,
+      "fecha": "2025-07-20",
+      "peso": 13.8,
+      "talla": 95.4,
+      "perimetroCefalico": 49.9,
+      "registradoPor": null
+    },
+    {
+      "id": 177,
+      "infanteId": 42,
+      "fecha": "2025-10-20",
+      "peso": 14.4,
+      "talla": 97.2,
+      "perimetroCefalico": 50.1,
+      "registradoPor": null
+    },
+    {
+      "id": 178,
+      "infanteId": 42,
+      "fecha": "2026-01-20",
+      "peso": 14.8,
+      "talla": 99.2,
+      "perimetroCefalico": 50.1,
+      "registradoPor": null
+    },
+    {
+      "id": 179,
+      "infanteId": 42,
+      "fecha": "2026-04-20",
+      "peso": 15.1,
+      "talla": 100.8,
+      "perimetroCefalico": 50.3,
+      "registradoPor": null
+    },
+    {
+      "id": 180,
+      "infanteId": 42,
+      "fecha": "2026-07-20",
+      "peso": 15.9,
+      "talla": 103.3,
+      "perimetroCefalico": 50.2,
+      "registradoPor": null
+    },
+    {
+      "id": 181,
+      "infanteId": 42,
+      "fecha": "2026-10-20",
+      "peso": 16.3,
+      "talla": 104.8,
+      "perimetroCefalico": 50.2,
+      "registradoPor": null
     }
   ],
-  "percentiles": [
+  "bitacora": [
     {
       "id": 1,
-      "sexo": "F",
-      "indicador": "peso",
-      "edadMeses": 12,
-      "p3": 10.2,
-      "p50": 12,
-      "p97": 14.6
+      "fecha": "2026-10-20T06:39:13.876Z",
+      "usuarioId": 1,
+      "nombre": "Patricia Ramírez Díaz",
+      "rol": "admin",
+      "accion": "login",
+      "recurso": "auth",
+      "registroId": null,
+      "detalle": ""
     },
     {
       "id": 2,
-      "sexo": "F",
-      "indicador": "peso",
-      "edadMeses": 18,
-      "p3": 10.8,
-      "p50": 12.7,
-      "p97": 15.3
+      "fecha": "2026-10-20T06:40:28.750Z",
+      "usuarioId": 1,
+      "nombre": "Patricia Ramírez Díaz",
+      "rol": "admin",
+      "accion": "editar",
+      "recurso": "usuarios",
+      "registroId": 4,
+      "detalle": ""
     },
     {
       "id": 3,
-      "sexo": "F",
-      "indicador": "peso",
-      "edadMeses": 24,
-      "p3": 11.4,
-      "p50": 13.6,
-      "p97": 16
+      "fecha": "2026-10-20T06:40:38.911Z",
+      "usuarioId": 1,
+      "nombre": "Patricia Ramírez Díaz",
+      "rol": "admin",
+      "accion": "dar_de_baja",
+      "recurso": "usuarios",
+      "registroId": 8,
+      "detalle": ""
     },
     {
       "id": 4,
-      "sexo": "F",
-      "indicador": "peso",
-      "edadMeses": 30,
-      "p3": 12.1,
-      "p50": 14.5,
-      "p97": 16.9
+      "fecha": "2026-10-20T06:40:48.690Z",
+      "usuarioId": 1,
+      "nombre": "Patricia Ramírez Díaz",
+      "rol": "admin",
+      "accion": "restablecer",
+      "recurso": "usuarios",
+      "registroId": 6,
+      "detalle": ""
     },
     {
       "id": 5,
-      "sexo": "F",
-      "indicador": "peso",
-      "edadMeses": 36,
-      "p3": 12.9,
-      "p50": 15.3,
-      "p97": 17.7
+      "fecha": "2026-10-20T06:41:07.952Z",
+      "usuarioId": 1,
+      "nombre": "Patricia Ramírez Díaz",
+      "rol": "admin",
+      "accion": "dar_de_baja",
+      "recurso": "usuarios",
+      "registroId": 6,
+      "detalle": ""
     },
     {
       "id": 6,
-      "sexo": "F",
-      "indicador": "peso",
-      "edadMeses": 42,
-      "p3": 13.6,
-      "p50": 16,
-      "p97": 18.3
+      "fecha": "2026-10-20T06:41:39.418Z",
+      "usuarioId": 1,
+      "nombre": "Patricia Ramírez Díaz",
+      "rol": "admin",
+      "accion": "corregir",
+      "recurso": "mediciones",
+      "registroId": 11,
+      "detalle": "El peso era incorrecto"
+    },
+    {
+      "id": 7,
+      "fecha": "2026-10-20T06:46:51.571Z",
+      "usuarioId": 1,
+      "nombre": "Ana López Pérez",
+      "rol": "tutor",
+      "accion": "login",
+      "recurso": "auth",
+      "registroId": null,
+      "detalle": ""
+    },
+    {
+      "id": 8,
+      "fecha": "2026-10-20T06:47:39.234Z",
+      "usuarioId": 1,
+      "nombre": "Ana López Pérez",
+      "rol": "tutor",
+      "accion": "login",
+      "recurso": "auth",
+      "registroId": null,
+      "detalle": ""
+    },
+    {
+      "id": 9,
+      "fecha": "2026-10-20T06:50:14.968Z",
+      "usuarioId": 1,
+      "nombre": "Ana López Pérez",
+      "rol": "tutor",
+      "accion": "login",
+      "recurso": "auth",
+      "registroId": null,
+      "detalle": ""
     }
   ]
 }

@@ -74,12 +74,16 @@ export const PrimerAcceso = () => {
     setFallaPersonales(false);
     const clave = valores.clave.trim().toUpperCase();
     try {
-      await crearContrasenaPrimerAcceso(clave, valores.password);
+      const { usuario } = await crearContrasenaPrimerAcceso(
+        clave,
+        valores.password,
+      );
       notify("primer_acceso.exito", { type: "success" });
-      //? Regresamos al login con la clave ya escrita. No iniciamos sesión
+      //? Regresamos al login con el usuario ya escrito (clave de la familia o
+      //? correo del personal). No iniciamos sesión
       //? aquí porque esta ruta vive fuera de la sesión de react-admin, y
-      //? así el tutor confirma que recuerda su nueva contraseña.
-      navigate("/login", { state: { usuario: clave } });
+      //? así la persona confirma que recuerda su nueva contraseña.
+      navigate("/login", { state: { usuario } });
     } catch (e) {
       if (e instanceof ErrorPrimerAcceso) {
         setFallaPersonales(e.fallas.includes("personales"));

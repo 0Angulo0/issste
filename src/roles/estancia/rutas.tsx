@@ -1,29 +1,26 @@
-import { CustomRoutes, ListGuesser, Resource } from "react-admin";
+import { CustomRoutes, Resource } from "react-admin";
 import { Route } from "react-router-dom";
-import ChildCareIcon from "@mui/icons-material/ChildCare";
-import MonitorWeightIcon from "@mui/icons-material/MonitorWeight";
-import { EnConstruccion } from "../../components/EnConstruccion";
+import { infantes } from "./infantes";
+import { mediciones } from "./mediciones";
+import { PanelCurvas } from "../../components/graficas/PanelCurvas";
 
 /**
  * Rutas del rol "estancia" (personal de la EBDI).
- * Registra infantes y captura sus medidas.
- *
- * ListGuesser es temporal: se reemplaza por las vistas reales en las
- * Pantallas 2 y 3.
+ * Pantalla 2: registrar infantes y capturar medidas.
+ * Pantalla 3: curvas de crecimiento.
  */
 export const rutasEstancia = (
   <>
-    <Resource
-      name="infantes"
-      list={ListGuesser}
-      icon={ChildCareIcon}
-      recordRepresentation={(r) => `${r.nombre} ${r.apellidos}`}
-    />
-    <Resource name="mediciones" list={ListGuesser} icon={MonitorWeightIcon} />
+    <Resource name="infantes" {...infantes} />
+    <Resource name="mediciones" {...mediciones} />
+    {/* Sin vistas propias: se registran para mostrar la estancia y la
+        clave de acceso de la familia en el expediente (ReferenceField). */}
+    <Resource name="estancias" recordRepresentation="nombre" />
+    <Resource name="tutores" recordRepresentation="nombre" />
     <CustomRoutes>
       <Route
         path="/graficas"
-        element={<EnConstruccion titulo="Curvas de crecimiento" />}
+        element={<PanelCurvas titulo="graficas.titulo_estancia" />}
       />
     </CustomRoutes>
   </>

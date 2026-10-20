@@ -80,16 +80,30 @@ export function cerrarSesion(token) {
 }
 
 /**
- * ? Genera una clave de acceso para tutores, por ejemplo "PI-7K3M9Q".
+ * ? Cierra TODAS las sesiones abiertas de una cuenta. Se usa al
+ * restablecer su acceso o darla de baja: quien tenga la sesión abierta
+ * queda fuera de inmediato.
+ */
+export function cerrarSesionesDe(rol, id) {
+  for (const [token, datos] of sesiones) {
+    const mismoGrupo = (datos.rol === "tutor") === (rol === "tutor");
+    if (mismoGrupo && datos.id === id) sesiones.delete(token);
+  }
+}
+
+/**
+ * ? Genera una clave, por ejemplo "PI-7K3M9Q".
+ *   - "PI": clave de acceso de las familias (también es su usuario)
+ *   - "AC": clave de activación del personal (solo sirve una vez)
  * Se omiten letras y números que se confunden al dictarlos (0/O, 1/I/L).
  */
-export function generarClaveAcceso() {
+export function generarClaveAcceso(prefijo = "PI") {
   const alfabeto = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
   let clave = "";
   for (let i = 0; i < 6; i++) {
     clave += alfabeto[crypto.randomInt(alfabeto.length)];
   }
-  return `PI-${clave}`;
+  return `${prefijo}-${clave}`;
 }
 
 /**
